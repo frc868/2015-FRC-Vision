@@ -17,6 +17,7 @@ import org.opencv.core.Scalar;
 import org.opencv.imgproc.Imgproc;
 
 import com.frc868.Program;
+import com.frc868.Server;
 
 /**
  * Draws contours around totes and uses a bounding box to determine robot commands, such as the robots speed and direction
@@ -34,7 +35,7 @@ public class ToteDetector implements Processor {
 		Mat result = Mat.zeros(source.size(), source.type());
 		Imgproc.drawContours(result, contours, -1, new Scalar(255, 255, 255));
 
-		List<Rect> totes = new ArrayList<>();
+		List<Rect> totes = new ArrayList<Rect>();
 		
 		largestRect = new Rect(0, 0, 0, 0);
 		
@@ -47,7 +48,6 @@ public class ToteDetector implements Processor {
 		
 		Collections.sort(totes, new Comparator<Rect>() {
 
-			@Override
 			public int compare(Rect arg0, Rect arg1) {
 				
 				if(arg0.size().height > arg1.size().height)
@@ -59,14 +59,16 @@ public class ToteDetector implements Processor {
 			}
 			
 		});
-		
+			
 		Core.rectangle(original, largestRect.tl(), largestRect.br(), new Scalar(255, 0, 0), 2, 8, 0);
-		System.out.println("Distance: " + (largestRect.height * 0.1018867924528208 / 12.0));
+
+		Server s = Server.getInstance();
+		s.setCenter(largestRect.x + largestRect.width / 2);
 		
-		Program.counter++;
-		long sec = (System.currentTimeMillis() - Program.time)/1000;
-		
-		System.out.println((double) Program.counter/(double) sec);
+		System.out.println(s.getCenter());
+		System.out.println("Center: " + s.isRobotCenter());
+		System.out.println("Right: " + s.isRobotRight());
+		System.out.println("Left: " + s.isRobotLeft());
 		
 		return original;
 	}

@@ -14,7 +14,6 @@ public class YellowTote implements Filter {
 	static Scalar low;
 	static Scalar high;
 	
-	@Override
 	public Mat apply(Mat source) {
 		
 		int iLowH = 20;

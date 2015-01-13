@@ -48,7 +48,6 @@ public class SliderWindow extends JFrame implements ChangeListener{
 	}
 
 
-	@Override
 	public void stateChanged(ChangeEvent arg0) {
 		Scalar low = new Scalar(h.getValue(), s.getValue(), v.getValue());
 		Scalar high = new Scalar(h.getValue() + H_RANGE, s.getValue() + S_RANGE, v.getValue() + V_RANGE);

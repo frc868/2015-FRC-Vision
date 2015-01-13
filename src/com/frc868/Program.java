@@ -23,8 +23,11 @@ public class Program {
 		counter = 0;
 		time = System.currentTimeMillis();
 		
-		Camera camera = new Camera("http://10.8.68.11/jpg/image.jpg", new ToteDetector());
+		Camera camera = new Camera("http://10.8.68.11/mjpg/video.mjpg", new ToteDetector());
 		camera.addFilter(new Filter2015());
+		
+		Server.setCamera(camera);
+		Server.getInstance();
 		
 		SliderWindow s = new SliderWindow();
 	

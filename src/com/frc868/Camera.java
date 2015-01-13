@@ -4,28 +4,49 @@ import java.awt.Dimension;
 import java.util.ArrayList;
 
 import org.opencv.core.Mat;
+import org.opencv.highgui.VideoCapture;
 
-import com.frc868.processors.Processor;
 import com.frc868.exceptions.CaptureException;
 import com.frc868.filters.Filter;
-import com.frc868.imgcv.Conversion;
-
+import com.frc868.processors.NoProcessing;
+import com.frc868.processors.Processor;
 /**
  * Represents a camera feed that can have filters applied.
  */
 public class Camera {
-	
+	private VideoCapture capture;
 	private ArrayList<Filter> filters;
 	private Dimension resolution;
 	private Processor processor;
 	
-	private String url;
+	/**
+	 * By default, uses empty Processor
+	 */
+	public Camera() throws CaptureException {
+		this(0, new NoProcessing());
+	}
+	
+	/**
+	 * By default, Camera opens feed from default video camera
+	 */
+	public Camera(Processor processor) throws CaptureException {
+		this(0, processor);
+	}
+	
+	/**
+	 * Use webcam id
+	 */
+	public Camera(int id, Processor processor) throws CaptureException {
+		capture = new VideoCapture(id);
+		initalize(processor);
+		updateResolution();
+	}
 	
 	/**
 	 * Create Camera feed from url or path, usually from url though
 	 */
 	public Camera(String url, Processor processor) throws CaptureException {
-		this.url = url;
+		capture = new VideoCapture(url);
 		initalize(processor);
 		updateResolution();
 	}
@@ -34,6 +55,12 @@ public class Camera {
 	 * Performs extra initialization
 	 */
 	private void initalize(Processor processor) throws CaptureException {
+		
+		if(!capture.isOpened()) {
+			//capture.
+			throw new CaptureException("Cannot open camera");
+		}
+		
 		this.filters = new ArrayList<Filter>();	
 		this.processor = processor;
 		this.resolution = new Dimension();
@@ -43,7 +70,7 @@ public class Camera {
 	 * Reads in a frame from an image source and uses it to determine the resolution of the camera, 
 	 * assuming each image frame has the same resolution
 	 */
-	public void updateResolution() throws CaptureException {
+	public void updateResolution(){
 		Mat mat = this.getRawFrame();
 		
 		this.resolution = new Dimension(mat.cols(), mat.rows());
@@ -57,20 +84,9 @@ public class Camera {
 	/**
 	 * Get's an unprocessed image frame before filtering and processing
 	 */
-	public Mat getRawFrame() throws CaptureException {
-		
-		Mat image;
-		
-		try {
-			image = Conversion.urlToMat(url);
-		} catch(Exception e) {
-			try {
-				image = Conversion.pathToMat(url);
-			} catch(Exception e0) {
-				e0.printStackTrace();
-				throw new CaptureException();
-			}
-		}
+	public Mat getRawFrame(){
+		Mat image = new Mat();
+		capture.read(image);
 		
 		return image;
 	}
@@ -78,17 +94,19 @@ public class Camera {
 	/**
 	 * Get's image frame from camera with filtering applied
 	 */
-	public Mat getFilteredFrame(Mat image) throws CaptureException {
+	public Mat getFilteredFrame(){
+		Mat image = this.getRawFrame();
 		Mat filtered = this.applyFilters(image.clone()); 
+		
 		return filtered;
 	}
 	
 	/**
 	 * Get's image frame from camera with processing applied
 	 */
-	public Mat getProcessedFrame() throws CaptureException {
-		Mat original = getRawFrame();
-		Mat filtered = this.getFilteredFrame(original);
+	public Mat getProcessedFrame(){
+		Mat original = this.getRawFrame();
+		Mat filtered = this.getFilteredFrame();
 		
 		return this.processor.process(filtered, original);
 	}
