@@ -23,7 +23,7 @@ public class Program {
 		counter = 0;
 		time = System.currentTimeMillis();
 		
-		Camera camera = new Camera("C:\\Vision2015\\VISION1.png", new ToteDetector());
+		Camera camera = new Camera("http://10.8.68.11/jpg/image.jpg", new ToteDetector());
 		camera.addFilter(new Filter2015());
 		
 		SliderWindow s = new SliderWindow();
