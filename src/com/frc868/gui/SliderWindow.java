@@ -52,6 +52,9 @@ public class SliderWindow extends JFrame implements ChangeListener{
 		Scalar low = new Scalar(h.getValue(), s.getValue(), v.getValue());
 		Scalar high = new Scalar(h.getValue() + H_RANGE, s.getValue() + S_RANGE, v.getValue() + V_RANGE);
 		
+		System.out.println(low);
+		System.out.println(high);
+		
 		YellowTote.defineRange(low, high);
 	}
 	

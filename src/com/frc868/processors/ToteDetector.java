@@ -64,11 +64,7 @@ public class ToteDetector implements Processor {
 
 		Server s = Server.getInstance();
 		s.setCenter(largestRect.x + largestRect.width / 2);
-		
-		System.out.println(s.getCenter());
-		System.out.println("Center: " + s.isRobotCenter());
-		System.out.println("Right: " + s.isRobotRight());
-		System.out.println("Left: " + s.isRobotLeft());
+		s.sendToSmartDashboard();
 		
 		return original;
 	}

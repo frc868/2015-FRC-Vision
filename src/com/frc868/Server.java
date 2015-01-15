@@ -17,6 +17,8 @@ public class Server {
 	private static Camera camera;
 	private NetworkTable table;
 	
+	private double offset;
+	
 	private Server(){
 		NetworkTable.setTeam(868);
 		NetworkTable.setIPAddress("10.8.68.2");
@@ -29,9 +31,10 @@ public class Server {
 			System.exit(1);
 		}
 		
-		table = NetworkTable.getTable("cam_val");
+		table = NetworkTable.getTable("SmartDashboard");
 		
 		cam_width = camera.getResolution().getWidth();
+		offset = 0;
 	}
 	
 	public static Server getInstance(){
@@ -52,6 +55,10 @@ public class Server {
 	
 	public double getCenter() {
 		return center;
+	}
+	
+	public void setCameraOffset(double offset) {
+		this.offset = offset;
 	}
 	
 	public double getOffset(){
