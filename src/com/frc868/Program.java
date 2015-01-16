@@ -23,16 +23,14 @@ public class Program {
 		counter = 0;
 		time = System.currentTimeMillis();
 		
-		Camera camera = new Camera("http://10.8.68.11/mjpg/video.mjpg", new ToteDetector());
+		//Camera camera = new Camera("http://10.8.68.11/mjpg/video.mjpg", new ToteDetector());
+		Camera camera = new Camera(0, new ToteDetector());
 		camera.addFilter(new Filter2015());
 		
 		Server.setCamera(camera);
 		Server.getInstance();
-		
-		SliderWindow s = new SliderWindow();
-	
+
 		Window window = new Window("Processed Image", camera, "C:/Vision2015/VISION_FILTER_PROS");
-		
 	}
 
 }

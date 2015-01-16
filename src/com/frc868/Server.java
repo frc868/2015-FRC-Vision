@@ -13,7 +13,7 @@ public class Server {
 	private double center;
 	private double distFactor;
 	private double offset;
-	
+
 	private final double THRESHOLD = 20;
 	
 	private static Camera camera;
@@ -43,6 +43,10 @@ public class Server {
 		}
 		
 		return instance;
+	}
+	
+	public NetworkTable getTable() {
+		return this.table;
 	}
 	
 	public static void setCamera(Camera camera) {
@@ -87,6 +91,7 @@ public class Server {
 	}
 	
 	public void sendToSmartDashboard() {
+		
 		table.putNumber("Tote Offset Percentage", this.getOffset());
 		table.putNumber("Tote Dist Factor", this.distFactor);
 		

@@ -38,15 +38,8 @@ public class CameraViewer extends JComponent {
 	
 	public void paintComponent(Graphics g){
 		
-		Mat processedFrame;
+		Mat processedFrame = camera.getProcessedFrame();
 		
-		try {
-			processedFrame = camera.getProcessedFrame();
-		} catch(Exception e) {
-			e.printStackTrace();
-			return;
-		}
-
 		BufferedImage processedImage  = MatIO.toImage(processedFrame);
 		g.drawImage(processedImage, 0, 0, null);
 	}
