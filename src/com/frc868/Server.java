@@ -11,13 +11,13 @@ public class Server {
 	
 	private double cam_width;
 	private double center;
+	private double distFactor;
+	private double offset;
 	
 	private final double THRESHOLD = 20;
 	
 	private static Camera camera;
 	private NetworkTable table;
-	
-	private double offset;
 	
 	private Server(){
 		NetworkTable.setTeam(868);
@@ -53,16 +53,17 @@ public class Server {
 		this.center = center;
 	}
 	
+	public void setDistFactor(double factor){
+		this.distFactor = factor;
+	}
+	
 	public double getCenter() {
 		return center;
 	}
 	
-	public void setCameraOffset(double offset) {
-		this.offset = offset;
-	}
-	
 	public double getOffset(){
-		return (center - cam_width / 2.0) / cam_width;
+		double offset =  (center - cam_width / 2.0) / cam_width;
+		return offset *= 1.5;
 	}
 	
 	public double getCameraWidth() {
@@ -87,6 +88,7 @@ public class Server {
 	
 	public void sendToSmartDashboard() {
 		table.putNumber("Tote Offset Percentage", this.getOffset());
+		table.putNumber("Tote Dist Factor", this.distFactor);
 		
 		table.putBoolean("Tote Right Robot", this.isRobotRight());
 		table.putBoolean("Tote Left Robot", this.isRobotLeft());

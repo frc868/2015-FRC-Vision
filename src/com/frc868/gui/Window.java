@@ -34,6 +34,7 @@ public class Window extends JFrame implements ActionListener {
 	 * Creates a Window with a specified Camera
 	 */
 	public Window(String title, Camera camera, String path){
+		
 		this.camera = camera;
 		this.viewer = new CameraViewer(camera);
 		this.timer = new Timer(0, (ActionListener) this);

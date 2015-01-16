@@ -16,13 +16,13 @@ public class YellowTote implements Filter {
 	
 	public Mat apply(Mat source) {
 		
-		int iLowH = 13;//20;
-		int iHighH = 25;//40;
+		int iLowH = 20;//20;
+		int iHighH = 40;//40;
 
-		int iLowS = 100; 
+		int iLowS = 85; 
 		int iHighS = 255;
 
-		int iLowV = 70;//140;
+		int iLowV = 50;//140;
 		int iHighV = 185;//255;
 		
 		if(low == null || high == null) {
