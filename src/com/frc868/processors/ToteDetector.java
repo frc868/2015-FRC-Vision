@@ -23,7 +23,7 @@ public class ToteDetector implements Processor {
 
 	public Rect largestRect;
 	public Size resolution;
-	public Rect lastLargestRect;
+	public Rect lastLargestRect = new Rect();
 	
 	public Mat process(Mat source, Mat original) {
 		resolution = source.size();
@@ -58,17 +58,22 @@ public class ToteDetector implements Processor {
 		s.setDistFactor(distFactor);
 		
 		s.sendToSmartDashboard();
+		lastLargestRect = largestRect;
 		return original;
 	}
 	
 	private double getDistanceFactor(Rect largestRect){
-		if(isInBottomCorner(largestRect)){
+		if(isInBottomCorner(largestRect) || isChangeTooGreat(largestRect) ){
 			return 0.0;
 		}
 		
 		double ratio = (double)largestRect.height / (this.resolution.height * 0.6); 
 		
 		return Math.min(Math.max(1 - ratio, 0.0), 1.0);
+	}
+	
+	private boolean isChangeTooGreat(Rect largestRect){
+		return Math.abs(lastLargestRect.area() - largestRect.area()) > 350 ;
 	}
 	
 	private boolean isInBottomCorner(Rect largestRect){

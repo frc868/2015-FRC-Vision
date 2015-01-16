@@ -43,7 +43,8 @@ public class CameraViewer extends JComponent {
 		try {
 			processedFrame = camera.getProcessedFrame();
 		} catch(Exception e) {
-			processedFrame = new Mat();
+			e.printStackTrace();
+			return;
 		}
 
 		BufferedImage processedImage  = MatIO.toImage(processedFrame);
