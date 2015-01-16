@@ -73,7 +73,7 @@ public class ToteDetector implements Processor {
 	}
 	
 	private boolean isChangeTooGreat(Rect largestRect){
-		return Math.abs(lastLargestRect.area() - largestRect.area()) > 350 ;
+		return Math.abs(lastLargestRect.area() - largestRect.area()) > 800 ;
 	}
 	
 	private boolean isInBottomCorner(Rect largestRect){
