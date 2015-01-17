@@ -13,8 +13,10 @@ public class Server {
 	private double center;
 	private double distFactor;
 	private double offset;
-
+	private double speed;
+	
 	private final double THRESHOLD = 20;
+	private final double MAX_TURN_OFFSET = 1.0;
 	
 	private static Camera camera;
 	private NetworkTable table;
@@ -35,6 +37,7 @@ public class Server {
 		
 		cam_width = camera.getResolution().getWidth();
 		offset = 0;
+		speed = 0;
 	}
 	
 	public static Server getInstance(){
@@ -61,13 +64,23 @@ public class Server {
 		this.distFactor = factor;
 	}
 	
+	public void setSpeed(double speed) {
+		this.speed = speed;
+	}
+	
 	public double getCenter() {
 		return center;
 	}
 	
 	public double getOffset(){
 		double offset =  (center - cam_width / 2.0) / cam_width;
-		return offset *= 1.5;
+		offset *= 1.25;
+	
+		return Math.min(offset, MAX_TURN_OFFSET);
+	}
+	
+	public double getSpeed() {
+		return speed;
 	}
 	
 	public double getCameraWidth() {
@@ -94,6 +107,7 @@ public class Server {
 		
 		table.putNumber("Tote Offset Percentage", this.getOffset());
 		table.putNumber("Tote Dist Factor", this.distFactor);
+		table.putNumber("Tote Speed", this.speed);
 		
 		table.putBoolean("Tote Right Robot", this.isRobotRight());
 		table.putBoolean("Tote Left Robot", this.isRobotLeft());

@@ -16,14 +16,14 @@ public class YellowTote implements Filter {
 	
 	public Mat apply(Mat source) {
 		
-		int iLowH = 20;//20;
-		int iHighH = 40;//40;
+		int iLowH = 14;//20;//20;
+		int iHighH = 26;//40;//40;
 
-		int iLowS = 85; 
+		int iLowS = 100;//85; 
 		int iHighS = 255;
 
-		int iLowV = 50;//140;
-		int iHighV = 185;//255;
+		int iLowV = 69;//50;//140;
+		int iHighV = 184;//255;
 		
 		if(low == null || high == null) {
 			low = new Scalar(iLowH, iLowS, iLowV);

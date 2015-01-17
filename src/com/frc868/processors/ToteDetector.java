@@ -63,18 +63,26 @@ public class ToteDetector implements Processor {
 	}
 	
 	private double getDistanceFactor(Rect largestRect){
-		if(isInBottomCorner(largestRect) || isChangeTooGreat(largestRect) ){
+		if(isInBottomCorner(largestRect) /*|| checkToStop(largestRect)*/ ){
 			return 0.0;
 		}
 		
-		double ratio = (double)largestRect.height / (this.resolution.height * 0.6); 
+		double ratio = 0.5 + (double)largestRect.height / (this.resolution.height * 0.20); 
+		
+		if (ratio >= 0.4) {
+			ratio = 1;
+		}
 		
 		return Math.min(Math.max(1 - ratio, 0.0), 1.0);
 	}
 	
-	private boolean isChangeTooGreat(Rect largestRect){
-		return Math.abs(lastLargestRect.area() - largestRect.area()) > 800 ;
+	private boolean checkToStop(Rect largestRect) {
+		return Math.abs(largestRect.height) > 170 && Math.abs(lastLargestRect.height) > 170;
 	}
+	/*
+	private boolean isChangeTooGreat(Rect largestRect){
+		return Math.abs(lastLargestRect.height/*.area()*/ /*- largestRect.height/*.area()*//*) > 140 ;
+	}*/
 	
 	private boolean isInBottomCorner(Rect largestRect){
 		final double eps = 10;

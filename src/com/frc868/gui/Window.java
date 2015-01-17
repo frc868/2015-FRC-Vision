@@ -15,7 +15,6 @@ import javax.swing.Timer;
 import com.frc868.Camera;
 import com.frc868.MatIO;
 import com.frc868.Server;
-import com.frc868.exceptions.CaptureException;
 
 /**
  * A JFrame that outputs the contents of a camera
@@ -23,7 +22,7 @@ import com.frc868.exceptions.CaptureException;
 public class Window extends JFrame implements ActionListener {
 	private Camera camera;
 	private CameraViewer viewer;
-	private ServerOutput output;
+	private SpeedSlider speedSlider;
 	
 	private Timer timer;
 	private JButton save;
@@ -41,7 +40,7 @@ public class Window extends JFrame implements ActionListener {
 		this.camera = camera;
 		this.viewer = new CameraViewer(camera);
 		this.timer = new Timer(0, (ActionListener) this);
-		this.output = new ServerOutput(Server.getInstance(), 100);
+		this.speedSlider = new SpeedSlider(Server.getInstance());
 		
 		save = new JButton("Save");
 		pane = this.getContentPane();
@@ -50,7 +49,7 @@ public class Window extends JFrame implements ActionListener {
 		flow.setAlignment(FlowLayout.LEADING);
 		
 		pane.setLayout(flow);
-		pane.add(output);
+		pane.add(speedSlider);
 		pane.add(viewer);
 		pane.add(save);
 		

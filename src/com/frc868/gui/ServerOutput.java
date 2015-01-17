@@ -1,14 +1,13 @@
 package com.frc868.gui;
 
+import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JComponent;
 import javax.swing.JTable;
 import javax.swing.Timer;
-import javax.swing.event.TableModelListener;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableModel;
 
 import com.frc868.Server;
 
@@ -27,6 +26,7 @@ public class ServerOutput extends JComponent implements ActionListener {
 	private Timer timer;
 	
 	public ServerOutput(Server server, int delay) {
+		super();
 		this.server = server;
 		this.timer = new Timer(delay, (ActionListener) this);
 		
@@ -36,13 +36,15 @@ public class ServerOutput extends JComponent implements ActionListener {
 		
 		this.table = new JTable(model);
 		
+		this.model.addRow(new Object[]{"yea", "ya"});
+		
+		
 		this.add(table);
+		this.setPreferredSize(new Dimension(200, 200));
 		timer.start();
 	}
 
 	public void actionPerformed(ActionEvent actionEvent) {
-		this.model.addRow(new Object[]{"yea", "ya"});
-		System.out.println("yea");
 		this.repaint();
 	}
 }
