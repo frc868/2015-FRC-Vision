@@ -1,6 +1,4 @@
 package com.frc868;
-import javax.swing.Timer;
-
 import org.opencv.core.Core;
 
 import com.frc868.exceptions.CaptureException;
@@ -9,6 +7,11 @@ import com.frc868.gui.SliderWindow;
 import com.frc868.gui.Window;
 import com.frc868.processors.ToteDetector;
 
+/** 
+ * @author Atif Niyaz, Andrew Bass, Calvin Henry
+ *
+ * Main Program Class
+ */
 public class Program {
 	
 	public static int counter;
@@ -31,7 +34,7 @@ public class Program {
 		server.setSpeed(0.8);
 
 		Window window = new Window("Processed Image", camera, "C:/Vision2015/VISION_FILTER_PROS");
-		SliderWindow hiEvan = new SliderWindow();
+		SliderWindow hsvSlider = new SliderWindow();
 	}
 
 }

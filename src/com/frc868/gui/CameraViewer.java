@@ -1,29 +1,21 @@
 package com.frc868.gui;
 
-import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.Font;
-import java.awt.FontMetrics;
 import java.awt.Graphics;
-import java.awt.font.FontRenderContext;
-import java.awt.image.BufferedImage;
 
 import javax.swing.JComponent;
 
-import org.opencv.core.Core;
-import org.opencv.core.Mat;
-import org.opencv.core.Point;
-import org.opencv.core.Scalar;
-import org.opencv.imgproc.Imgproc;
-
 import com.frc868.Camera;
 import com.frc868.MatIO;
-import com.frc868.processors.Processor;
 
 /**
+ * @author Andrew Bass
+ * 
  * This class filters and renders an image from a camera
  */
+@SuppressWarnings("serial")
 public class CameraViewer extends JComponent {
+	
 	private Camera camera;
 	private Dimension cameraResolution;
 	
@@ -37,11 +29,7 @@ public class CameraViewer extends JComponent {
 	}
 	
 	public void paintComponent(Graphics g){
-		
-		Mat processedFrame = camera.getProcessedFrame();
-		
-		BufferedImage processedImage  = MatIO.toImage(processedFrame);
-		g.drawImage(processedImage, 0, 0, null);
+		g.drawImage(MatIO.toImage(camera.getProcessedFrame()), 0, 0, null);
 	}
 	
 }

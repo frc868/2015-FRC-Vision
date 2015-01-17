@@ -8,6 +8,9 @@ import org.opencv.imgproc.Imgproc;
 
 /**
  * @author Atif Niyaz
+ * 
+ * Filters out a range of HSV values which are supposed to resemble
+ * the values of the yellow tote.
  */
 public class YellowTote implements Filter {
 

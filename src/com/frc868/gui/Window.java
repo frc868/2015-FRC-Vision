@@ -16,23 +16,27 @@ import com.frc868.Camera;
 import com.frc868.MatIO;
 import com.frc868.Server;
 
-/**
- * A JFrame that outputs the contents of a camera
+/** 
+ * @author Atif Niyaz, Calvin Henry, Andrew Bass
+ * 
+ * Creates a new Window with the Camera
  */
+@SuppressWarnings("serial")
 public class Window extends JFrame implements ActionListener {
+	
 	private Camera camera;
 	private CameraViewer viewer;
 	private SpeedSlider speedSlider;
 	
 	private Timer timer;
 	private JButton save;
-	private JButton edit;
-
-	private int counter = 0;
-	private String path;
-	Container pane;
 	
-	/*
+	private int counter = 0;
+	
+	private String path;
+	private Container pane;
+	
+	/**
 	 * Creates a Window with a specified Camera
 	 */
 	public Window(String title, Camera camera, String path){
@@ -67,7 +71,7 @@ public class Window extends JFrame implements ActionListener {
 		this.path = path;
 	}
 
-	/*
+	/**
 	 * This method is called as fast as possible by the timer and initiates repainting 
 	 */
 	public void actionPerformed(ActionEvent actionEvent) {
@@ -97,6 +101,7 @@ public class Window extends JFrame implements ActionListener {
 				e.printStackTrace();
 			}
 		}
+		
 		this.repaint();
 	}
 }

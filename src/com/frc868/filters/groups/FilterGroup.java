@@ -7,9 +7,12 @@ import org.opencv.core.Mat;
 import com.frc868.filters.Filter;
 
 /**
+ * @author Andrew Bass
+ * 
  * Represents a group of filters that are applied sequentially
  */
 public abstract class FilterGroup implements Filter {
+	
 	private ArrayList<Filter> filters;
 	
 	protected FilterGroup(){
@@ -26,6 +29,7 @@ public abstract class FilterGroup implements Filter {
 		for (Filter filter : filters){
 			source = filter.apply(source);
 		}
+		
 		return source;
 	}
 }

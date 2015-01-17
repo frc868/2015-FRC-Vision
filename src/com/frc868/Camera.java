@@ -11,6 +11,8 @@ import com.frc868.filters.Filter;
 import com.frc868.processors.NoProcessing;
 import com.frc868.processors.Processor;
 /**
+ * @author Andrew Bass, Atif Niyaz, Calvin Henry
+ * 
  * Represents a camera feed that can have filters applied.
  */
 public class Camera {

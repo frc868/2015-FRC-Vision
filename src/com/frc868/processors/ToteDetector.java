@@ -1,7 +1,6 @@
 package com.frc868.processors;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
@@ -16,49 +15,49 @@ import org.opencv.imgproc.Imgproc;
 import com.frc868.Server;
 
 /**
- * Draws contours around totes and uses a bounding box to determine robot commands, such as the robots speed and direction
- *
+ * @author Atif Niyaz, Calvin Henry, Andrew Bass
+ * 
+ * Draws contours around yellow totes and uses a bounding box to determine robot commands, 
+ * such as the robot's speed and direction.
  */
 public class ToteDetector implements Processor {
 
-	public Rect largestRect;
-	public Size resolution;
-	public Rect lastLargestRect = new Rect();
+	private Rect largestRect;
+	private Size camResolution;
 	
 	public Mat process(Mat source, Mat original) {
-		resolution = source.size();
 		
+		// Get Resolution of Video Feed
+		camResolution = source.size();
+		
+		// Find Contours of Tote
 		List<MatOfPoint> contours = new ArrayList<MatOfPoint>();
-		Mat hierarchy = new Mat();
-		Imgproc.findContours(source, contours, hierarchy, Imgproc.RETR_EXTERNAL, Imgproc.CHAIN_APPROX_SIMPLE);
+		Imgproc.findContours(source, contours, new Mat(), Imgproc.RETR_EXTERNAL, Imgproc.CHAIN_APPROX_SIMPLE);
 		
-		Mat result = Mat.zeros(source.size(), source.type());
-		Imgproc.drawContours(result, contours, -1, new Scalar(255, 255, 255));
-
-		List<Rect> totes = new ArrayList<Rect>();
-		
+		// Set Largest Rect to be 0 x 0
 		largestRect = new Rect(0, 0, 0, 0);
 		
+		// Iterate through all contours, each will create a bounding rectangle.
+		// The biggest rectangle / tote in view will move on in the processing.
 		for(int i = 0; i < contours.size(); i++) {
-			totes.add(Imgproc.boundingRect(contours.get(i)));
 			
-			if(totes.get(i).size().area() > largestRect.size().area())
-				largestRect = totes.get(i);
+			Rect rect = Imgproc.boundingRect(contours.get(i));
+			
+			if(rect.size().area() > largestRect.size().area())
+				largestRect = rect;
 		}
 		
-		Collections.sort(totes, new RectComparator());
-			
+		// Draw the Rectangle onto the Mat
 		Core.rectangle(original, largestRect.tl(), largestRect.br(), new Scalar(255, 0, 0), 2, 8, 0);
 
+		// Instantiate Server
 		Server s = Server.getInstance();
+		
+		// Add Values to Send to Server
 		s.setCenter(largestRect.x + largestRect.width / 2);
+		s.setDistFactor(getDistanceFactor(largestRect));
+		s.send();
 		
-		// Calculating distance factor
-		double distFactor = getDistanceFactor(largestRect);
-		s.setDistFactor(distFactor);
-		
-		s.sendToSmartDashboard();
-		lastLargestRect = largestRect;
 		return original;
 	}
 	
@@ -67,7 +66,7 @@ public class ToteDetector implements Processor {
 			return 0.0;
 		}
 		
-		double ratio = 0.5 + (double)largestRect.height / (this.resolution.height * 0.20); 
+		double ratio = 0.5 + (double)largestRect.height / (this.camResolution.height * 0.20); 
 		
 		if (ratio >= 0.4) {
 			ratio = 1;
@@ -75,19 +74,16 @@ public class ToteDetector implements Processor {
 		
 		return Math.min(Math.max(1 - ratio, 0.0), 1.0);
 	}
-	
-	private boolean checkToStop(Rect largestRect) {
-		return Math.abs(largestRect.height) > 170 && Math.abs(lastLargestRect.height) > 170;
-	}
+
 	/*
 	private boolean isChangeTooGreat(Rect largestRect){
-		return Math.abs(lastLargestRect.height/*.area()*/ /*- largestRect.height/*.area()*//*) > 140 ;
+		return Math.abs(lastLargestRect.height - largestRect.height) > 140 ;
 	}*/
 	
 	private boolean isInBottomCorner(Rect largestRect){
 		final double eps = 10;
 		
-		double distFromBottomRight = resolution.width - (largestRect.x + largestRect.width);
+		double distFromBottomRight = camResolution.width - (largestRect.x + largestRect.width);
 		double distFromBottomLeft = largestRect.x;	
 		
 		if (distFromBottomRight < eps || distFromBottomLeft < eps) {

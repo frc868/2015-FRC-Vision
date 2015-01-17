@@ -5,6 +5,8 @@ import org.opencv.core.Size;
 import org.opencv.imgproc.Imgproc;
 
 /**
+ * @author Andrew Bass
+ * 
  * Expands bright areas within an image, the inverse of an erosion on an image
  */
 public class Dilate implements Filter {

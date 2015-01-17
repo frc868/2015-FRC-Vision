@@ -6,7 +6,9 @@ import org.opencv.core.Mat;
 import com.frc868.constants.FlipCode;
 
 /**
- * Horizontially and / or vertically mirrors an image, perfect for front facing webcams
+ * @author Andrew Bass
+ * 
+ * Horizontally and / or vertically mirrors an image, perfect for front facing webcams
  */
 public class Mirror implements Filter {
 	private int flipCode;

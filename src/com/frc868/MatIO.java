@@ -12,6 +12,8 @@ import org.opencv.core.MatOfByte;
 import org.opencv.highgui.Highgui;
 
 /**
+ * @author Andrew Bass
+ * 
  * Static class that contains useful functions for outputing and saving Matrices
  */
 public class MatIO {

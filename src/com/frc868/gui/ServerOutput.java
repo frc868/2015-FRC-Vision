@@ -12,11 +12,12 @@ import javax.swing.table.DefaultTableModel;
 import com.frc868.Server;
 
 /**
+ * @author Andrew Bass
+ * 
  * Displays the values being sent by the Server the the NetworkTable
  */
+@SuppressWarnings("serial")
 public class ServerOutput extends JComponent implements ActionListener {
-	
-	private static final String[] COLUMN_NAMES = {"Key", "Value" };
 	
 	private Server server;
 	
@@ -27,6 +28,7 @@ public class ServerOutput extends JComponent implements ActionListener {
 	
 	public ServerOutput(Server server, int delay) {
 		super();
+		
 		this.server = server;
 		this.timer = new Timer(delay, (ActionListener) this);
 		
@@ -37,7 +39,6 @@ public class ServerOutput extends JComponent implements ActionListener {
 		this.table = new JTable(model);
 		
 		this.model.addRow(new Object[]{"yea", "ya"});
-		
 		
 		this.add(table);
 		this.setPreferredSize(new Dimension(200, 200));

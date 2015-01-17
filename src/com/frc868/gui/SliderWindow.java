@@ -2,11 +2,10 @@ package com.frc868.gui;
 
 import java.awt.Container;
 import java.awt.FlowLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 import javax.swing.JFrame;
 import javax.swing.JSlider;
+
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
@@ -14,9 +13,15 @@ import org.opencv.core.Scalar;
 
 import com.frc868.filters.YellowTote;
 
-	//kill Dobie;
-
+/**
+ * @author Andrew Bass, Atif Niyaz, Calvin Henry
+ *
+ * Creates a Window with three Slider Objects to modify and play with HSV
+ * color values.
+ */
+@SuppressWarnings("serial")
 public class SliderWindow extends JFrame implements ChangeListener{
+	
 	final int H_RANGE = 12;
 	final int S_RANGE = 155;
 	final int V_RANGE = 115;
@@ -28,7 +33,9 @@ public class SliderWindow extends JFrame implements ChangeListener{
 	Container pane;
 	
 	public SliderWindow(){
+		
 		pane = this.getContentPane();
+		
 		FlowLayout flow = new FlowLayout();
 		flow.setAlignment(FlowLayout.TRAILING);
 		pane.setLayout(flow);
@@ -47,8 +54,11 @@ public class SliderWindow extends JFrame implements ChangeListener{
 		this.setVisible(true);
 	}
 
-
+	/**
+	 * Print out to the Console the adjusted Low and High Threshold values for HSV
+	 */
 	public void stateChanged(ChangeEvent arg0) {
+		
 		Scalar low = new Scalar(h.getValue(), s.getValue(), v.getValue());
 		Scalar high = new Scalar(h.getValue() + H_RANGE, s.getValue() + S_RANGE, v.getValue() + V_RANGE);
 		

@@ -5,6 +5,8 @@ import org.opencv.core.Size;
 import org.opencv.imgproc.Imgproc;
 
 /**
+ * @author Andrew Bass
+ * 
  * Expands dark areas within a Mat
  */
 public class Erode implements Filter {

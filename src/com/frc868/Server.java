@@ -103,14 +103,20 @@ public class Server {
 		return cam_width / 2 + THRESHOLD < center || center <= 0;
 	}
 	
-	public void sendToSmartDashboard() {
+	public void send() {
 		
-		table.putNumber("Tote Offset Percentage", this.getOffset());
-		table.putNumber("Tote Dist Factor", this.distFactor);
-		table.putNumber("Tote Speed", this.speed);
-		
-		table.putBoolean("Tote Right Robot", this.isRobotRight());
-		table.putBoolean("Tote Left Robot", this.isRobotLeft());
-		table.putBoolean("Tote Center Robot", this.isRobotCenter());
+		(new Thread(){
+			
+			public void run() {
+				
+				table.putNumber("Tote Offset Percentage", getOffset());
+				table.putNumber("Tote Dist Factor", distFactor);
+				table.putNumber("Tote Speed", speed);
+				
+				table.putBoolean("Tote Right Robot", isRobotRight());
+				table.putBoolean("Tote Left Robot", isRobotLeft());
+				table.putBoolean("Tote Center Robot", isRobotCenter());
+			}
+		}).start();
 	}
 }

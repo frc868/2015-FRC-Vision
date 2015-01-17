@@ -1,11 +1,11 @@
 package com.frc868.filters;
 
-import org.opencv.core.Core;
-import org.opencv.core.Mat;
 import org.opencv.imgproc.Imgproc;
 
 /**
- * Converts a standard BGR image to grayscale
+ * @author Andrew Bass
+ * 
+ * Converts a standard BGR image to GrayScale
  */
 public class GrayScale extends ColorSpace {
 	public GrayScale(){

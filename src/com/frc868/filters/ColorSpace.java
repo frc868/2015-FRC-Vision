@@ -4,6 +4,8 @@ import org.opencv.core.Mat;
 import org.opencv.imgproc.Imgproc;
 
 /**
+ * @author Andrew Bass
+ * 
  * Converts from one colorspace to another
  */
 public class ColorSpace implements Filter {
