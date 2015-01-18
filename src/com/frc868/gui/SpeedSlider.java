@@ -30,12 +30,14 @@ public class SpeedSlider extends JPanel implements ChangeListener {
 		BoxLayout layout = new BoxLayout(this, BoxLayout.Y_AXIS);
 		this.setLayout(layout);
 		
-		this.label = new JLabel("Speed");
+		this.label = new JLabel("Speed: 0.65");
 		
 		this.slider = new JSlider(0, 255);
-		this.slider.setAlignmentX(CENTER_ALIGNMENT);
-		this.slider.setOrientation(JSlider.VERTICAL);
+		this.slider.setAlignmentX(LEFT_ALIGNMENT);
+		this.slider.setOrientation(JSlider.HORIZONTAL);
 		this.slider.addChangeListener((ChangeListener) this);
+		this.slider.setValue((int) (0.65 * 255.0));
+		server.setSpeed(0.65);
 		
 		this.add(label);
 		this.add(slider);
@@ -45,6 +47,11 @@ public class SpeedSlider extends JPanel implements ChangeListener {
 	 * If speed changes, make sure that the server gets the new value.
 	 */
 	public void stateChanged(ChangeEvent e) {
-		server.setSpeed(((double)this.slider.getValue() / 255.0) * 2.0);
+		
+		double value = (double) this.slider.getValue() / 255.0;
+		
+		label.setText("Speed: " + ((double) Math.round(value * 1000) / 1000)/* * 2.0*/);
+		
+		server.setSpeed((value)/* * 2.0*/);
 	}	
 }

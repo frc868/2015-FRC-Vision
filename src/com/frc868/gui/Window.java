@@ -10,6 +10,7 @@ import java.io.File;
 import javax.imageio.ImageIO;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JPanel;
 import javax.swing.Timer;
 
 import com.frc868.Camera;
@@ -26,10 +27,10 @@ public class Window extends JFrame implements ActionListener {
 	
 	private Camera camera;
 	private CameraViewer viewer;
-	private SpeedSlider speedSlider;
 	
 	private Timer timer;
 	private JButton save;
+	private JPanel sliders;
 	
 	private int counter = 0;
 	
@@ -44,20 +45,16 @@ public class Window extends JFrame implements ActionListener {
 		this.camera = camera;
 		this.viewer = new CameraViewer(camera);
 		this.timer = new Timer(0, (ActionListener) this);
-		this.speedSlider = new SpeedSlider(Server.getInstance());
+		this.sliders = new Sliders();
 		
-		save = new JButton("Save");
 		pane = this.getContentPane();
 		
 		FlowLayout flow = new FlowLayout();
 		flow.setAlignment(FlowLayout.LEADING);
 		
 		pane.setLayout(flow);
-		pane.add(speedSlider);
 		pane.add(viewer);
-		pane.add(save);
-		
-		save.addActionListener(this);
+		pane.add(sliders);
 		
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setTitle(title);

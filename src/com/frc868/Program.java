@@ -3,7 +3,6 @@ import org.opencv.core.Core;
 
 import com.frc868.exceptions.CaptureException;
 import com.frc868.filters.groups.Filter2015;
-import com.frc868.gui.SliderWindow;
 import com.frc868.gui.Window;
 import com.frc868.processors.ToteDetector;
 
@@ -31,7 +30,6 @@ public class Program {
 		server.setSpeed(0.8);
 
 		Window window = new Window("Vision Viewer 2015", camera, "C:/Vision2015/VISION_FILTER_PROS");
-		SliderWindow hsvSlider = new SliderWindow();
 	}
 
 }

@@ -40,6 +40,16 @@ public class Server {
 		speed = 0;
 	}
 	
+	public static Server getInstance(Camera camera){
+		Server.camera = camera;
+		
+		if (instance == null){
+			instance = new Server();
+		}
+		
+		return instance;
+	}
+	
 	public static Server getInstance(){
 		if (instance == null){
 			instance = new Server();
@@ -118,5 +128,9 @@ public class Server {
 				table.putBoolean("Tote Center Robot", isRobotCenter());
 			}
 		}).start();
+	}
+	
+	public boolean getIsTeleop() {
+		return table.getBoolean("Teleop", false);
 	}
 }

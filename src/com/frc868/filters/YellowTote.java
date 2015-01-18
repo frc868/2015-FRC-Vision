@@ -17,16 +17,14 @@ public class YellowTote implements Filter {
 	static Scalar low;
 	static Scalar high;
 	
+	static int 	iLowH = 14,//20;//20;
+				iHighH = 26,//40;//40;
+				iLowS = 100,//85;
+				iHighS = 255,
+				iLowV = 69,//50;//140;
+				iHighV = 184;//255;
+	
 	public Mat apply(Mat source) {
-		
-		int iLowH = 14;//20;//20;
-		int iHighH = 26;//40;//40;
-
-		int iLowS = 100;//85; 
-		int iHighS = 255;
-
-		int iLowV = 69;//50;//140;
-		int iHighV = 184;//255;
 		
 		if(low == null || high == null) {
 			low = new Scalar(iLowH, iLowS, iLowV);
@@ -51,5 +49,14 @@ public class YellowTote implements Filter {
 	public static void defineRange(Scalar low, Scalar high) {
 		YellowTote.low = low;
 		YellowTote.high = high;
+	}
+	
+	public static Scalar[] getRange() {
+		
+		if(low == null || high == null) 
+			return new Scalar[] {new Scalar(iLowH, iLowS, iLowV), 
+					new Scalar(iHighH, iHighS, iHighV)};
+		else
+			return new Scalar[] {low, high};
 	}
 }
