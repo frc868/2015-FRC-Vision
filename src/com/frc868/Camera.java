@@ -3,6 +3,8 @@ package com.frc868;
 import java.awt.Dimension;
 import java.util.ArrayList;
 
+import javax.swing.plaf.basic.BasicInternalFrameTitlePane.SystemMenuBar;
+
 import org.opencv.core.Mat;
 import org.opencv.highgui.VideoCapture;
 
@@ -16,6 +18,9 @@ import com.frc868.processors.Processor;
  * Represents a camera feed that can have filters applied.
  */
 public class Camera {
+	
+	private long initTime;
+	
 	private VideoCapture capture;
 	private ArrayList<Filter> filters;
 	private Dimension resolution;
@@ -87,6 +92,12 @@ public class Camera {
 	 * Get's an unprocessed image frame before filtering and processing
 	 */
 	public Mat getRawFrame(){
+		
+		if(!capture.grab()) { // Stream is broken of EOF
+			System.out.println("Stream is broken or we are at EOF or we are at 15 second time limit");
+			System.exit(99);
+		}
+		
 		Mat image = new Mat();
 		capture.read(image);
 		

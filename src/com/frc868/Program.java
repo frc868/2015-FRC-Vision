@@ -14,26 +14,23 @@ import com.frc868.processors.ToteDetector;
  */
 public class Program {
 	
-	public static int counter;
-	public static long time;
-	
 	static {
-		System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
+		System.loadLibrary("libs/" + Core.NATIVE_LIBRARY_NAME);
+		System.loadLibrary("libs/opencv_ffmpeg2410_64");
 	}
 	
 	public static void main(String [] args) throws CaptureException {
 		
-		counter = 0;
-		time = System.currentTimeMillis();
+		String url = "http://10.8.68.11/mjpg/video.mjpg";
 		
-		Camera camera = new Camera("http://10.8.68.11/mjpg/video.mjpg", new ToteDetector());
+		Camera camera = new Camera("files/test.mp4", new ToteDetector());
 		camera.addFilter(new Filter2015());
 		
 		Server.setCamera(camera);
 		Server server = Server.getInstance();
 		server.setSpeed(0.8);
 
-		Window window = new Window("Processed Image", camera, "C:/Vision2015/VISION_FILTER_PROS");
+		Window window = new Window("Vision Viewer 2015", camera, "C:/Vision2015/VISION_FILTER_PROS");
 		SliderWindow hsvSlider = new SliderWindow();
 	}
 
