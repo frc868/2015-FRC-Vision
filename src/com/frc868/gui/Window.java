@@ -31,7 +31,6 @@ public class Window extends JFrame implements ActionListener {
 	private Timer timer;
 	private JButton save;
 	private JPanel sliders;
-	private ServerOutput output;
 	
 	private int counter = 0;
 	
@@ -47,8 +46,7 @@ public class Window extends JFrame implements ActionListener {
 		
 		this.viewer = new CameraViewer(camera);
 		this.timer = new Timer(0, (ActionListener) this);
-		this.sliders = new SpeedSlider(Server.getInstance());
-		this.output = new ServerOutput(Server.getInstance(), 100);
+		this.sliders = new SliderView();
 		
 		pane = this.getContentPane();
 		
@@ -56,7 +54,6 @@ public class Window extends JFrame implements ActionListener {
 		flow.setAlignment(FlowLayout.LEADING);
 		
 		pane.setLayout(flow);
-		pane.add(output);
 		pane.add(viewer);
 		pane.add(sliders);
 		

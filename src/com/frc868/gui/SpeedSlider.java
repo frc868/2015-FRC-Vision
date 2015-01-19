@@ -34,7 +34,7 @@ public class SpeedSlider extends JPanel implements ChangeListener {
 		
 		this.slider = new JSlider(0, 255);
 		this.slider.setAlignmentX(LEFT_ALIGNMENT);
-		this.slider.setOrientation(JSlider.VERTICAL);
+		this.slider.setOrientation(JSlider.HORIZONTAL);
 		
 		this.slider.addChangeListener((ChangeListener) this);
 		this.slider.setValue((int) (0.65 * 255.0));

@@ -1,6 +1,7 @@
 package com.frc868.gui;
 
 import java.awt.Dimension;
+import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -21,7 +22,7 @@ import com.frc868.Server;
 @SuppressWarnings("serial")
 public class ServerOutput extends JPanel implements ActionListener {
 	
-	private static final int COLUMN_WIDTH = 100;
+	private static final int COLUMN_WIDTH = 50;
 	
 	private Server server;
 	
@@ -34,10 +35,13 @@ public class ServerOutput extends JPanel implements ActionListener {
 	public ServerOutput(Server server, int delay) {
 		super();
 		
+		this.setBounds(getX(), getY(), COLUMN_WIDTH, getHeight());
+		
 		this.server = server;
 		this.timer = new Timer(delay, (ActionListener) this);
 		
 		GridLayout layout = new GridLayout();
+	
 		this.setLayout(layout);
 		
 		this.model = new DefaultTableModel();
