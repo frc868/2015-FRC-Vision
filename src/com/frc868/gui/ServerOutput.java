@@ -6,6 +6,7 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.BoxLayout;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -48,9 +49,9 @@ public class ServerOutput extends JPanel implements ActionListener {
 		this.table = new JTable(model);
 		
 		this.table.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
-		
 		this.pane = new JScrollPane(table);
-	
+		this.pane.setAlignmentX(LEFT_ALIGNMENT);
+
 		this.add(pane);
 		timer.start();
 	}

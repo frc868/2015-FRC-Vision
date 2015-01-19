@@ -14,7 +14,9 @@ import com.frc868.processors.ToteDetector;
 public class Program {
 	
 	static {
+		System.out.println("Loading OpenCV 2.4.10");
 		System.loadLibrary("libs/" + Core.NATIVE_LIBRARY_NAME);
+		System.out.println("Loading OpenCV FFMPEG Libs x64_86");
 		System.loadLibrary("libs/opencv_ffmpeg2410_64");
 	}
 	
