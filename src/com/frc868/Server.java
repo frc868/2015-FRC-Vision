@@ -2,6 +2,9 @@ package com.frc868;
 
 import java.io.IOException;
 
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
+
 import edu.wpi.first.wpilibj.networktables.NetworkTable;
 
 
@@ -111,6 +114,18 @@ public class Server {
 	
 	public boolean isRobotLeft() {
 		return cam_width / 2 + THRESHOLD < center || center <= 0;
+	}
+	
+	public DefaultTableModel toTableModel() {
+		DefaultTableModel model = new DefaultTableModel();
+		model.addColumn("Key");
+		model.addColumn("Value");
+		
+		model.addRow(new Object[] {"Offset", this.getOffset()} );
+		model.addRow(new Object[] {"Dist Factor", distFactor} );
+		model.addRow(new Object[] {"Center", this.getCenter()} );
+		
+		return model;
 	}
 	
 	public void send() {

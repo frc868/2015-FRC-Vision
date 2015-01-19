@@ -64,8 +64,13 @@ public class Camera {
 	private void initalize(Processor processor) throws CaptureException {
 		
 		if(!capture.isOpened()) {
-			//capture.
-			throw new CaptureException("Cannot open camera");
+			System.out.println("Could not open specified filepath / url, defaulting to first connected hardware camera.");
+			capture.open(0);
+			
+			if (!capture.isOpened()) {
+				System.out.println("Could not open first hardware camera");
+				throw new CaptureException("Cannot open camera");
+			}
 		}
 		
 		this.filters = new ArrayList<Filter>();	
