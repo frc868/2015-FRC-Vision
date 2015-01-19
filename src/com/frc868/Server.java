@@ -116,13 +116,17 @@ public class Server {
 		return cam_width / 2 + THRESHOLD < center || center <= 0;
 	}
 	
+	public double getDistanceFactor() {
+		return distFactor;
+	}
+	
 	public DefaultTableModel toTableModel() {
 		DefaultTableModel model = new DefaultTableModel();
 		model.addColumn("Key");
 		model.addColumn("Value");
 		
 		model.addRow(new Object[] {"Offset", this.getOffset()} );
-		model.addRow(new Object[] {"Dist Factor", distFactor} );
+		model.addRow(new Object[] {"Dist Factor", this.getDistanceFactor()} );
 		model.addRow(new Object[] {"Center", this.getCenter()} );
 		
 		return model;
@@ -135,7 +139,7 @@ public class Server {
 			public void run() {
 				
 				table.putNumber("Tote Offset Percentage", getOffset());
-				table.putNumber("Tote Dist Factor", distFactor);
+				table.putNumber("Tote Dist Factor", getDistanceFactor());
 				table.putNumber("Tote Speed", speed);
 				
 				table.putBoolean("Tote Right Robot", isRobotRight());
