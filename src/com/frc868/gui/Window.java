@@ -44,9 +44,9 @@ public class Window extends JFrame implements ActionListener {
 		
 		this.camera = camera;
 		
-		this.viewer = new CameraViewer(camera);
+		this.viewer = new CameraViewer(camera, 1);
 		this.timer = new Timer(0, (ActionListener) this);
-		this.sliders = new SliderView();
+		this.sliders = new SliderView(viewer);
 		
 		pane = this.getContentPane();
 		
@@ -101,6 +101,8 @@ public class Window extends JFrame implements ActionListener {
 			}
 		}
 		
+		this.revalidate();
 		this.repaint();
+		this.pack();
 	}
 }
