@@ -26,9 +26,9 @@ public class SliderView extends JPanel {
 		
 		hsvSlider = new HSVSlider();
 		speedSlider = new SpeedSlider(Server.getInstance());
-		resizeBox = new ResizeDropdown(camView);
+		//resizeBox = new ResizeDropdown(camView);
 		
-		JComponent[] components = {serverOutput, hsvSlider, speedSlider, resizeBox };
+		JComponent[] components = {serverOutput, hsvSlider, speedSlider, /*resizeBox */};
 		
 		for (JComponent comp : components) {
 			add(comp);

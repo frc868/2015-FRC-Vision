@@ -62,14 +62,17 @@ public class ToteDetector implements Processor {
 	}
 	
 	private double getDistanceFactor(Rect largestRect){
-		if(isInBottomCorner(largestRect) /*|| checkToStop(largestRect)*/ ){
+		if(isInBottomCorner(largestRect)){
 			return 0.0;
 		}
 		
-		double ratio = 0.5 + (double)largestRect.height / (this.camResolution.height * 0.20); 
+		double ratio = (double)largestRect.height / (this.camResolution.height * 0.30); 
+		System.out.println("DHAHHA; " + ratio);
 		
-		if (ratio >= 0.4) {
+		if (ratio > 0.95) {
 			ratio = 1;
+		} else {
+			ratio -= 0.75;
 		}
 		
 		return Math.min(Math.max(1 - ratio, 0.0), 1.0);

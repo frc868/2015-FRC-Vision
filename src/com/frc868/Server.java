@@ -43,9 +43,7 @@ public class Server {
 		speed = 0;
 	}
 	
-	public static Server getInstance(Camera camera){
-		Server.camera = camera;
-		
+	public static Server getInstance(){
 		if (instance == null){
 			instance = new Server();
 		}
@@ -53,12 +51,8 @@ public class Server {
 		return instance;
 	}
 	
-	public static Server getInstance(){
-		if (instance == null){
-			instance = new Server();
-		}
-		
-		return instance;
+	public double getWidth() {
+		return camera.getResolution().getWidth();
 	}
 	
 	public NetworkTable getTable() {
@@ -86,9 +80,12 @@ public class Server {
 	}
 	
 	public double getOffset(){
-		double offset =  (center - cam_width / 2.0) / cam_width;
+		double offset =  (center - getCameraWidth() / 2.0) / getCameraWidth();
 		offset *= 1.25;
 	
+		System.out.println(center);
+		System.out.println(getCameraWidth());
+		System.out.println(offset);
 		return Math.min(offset, MAX_TURN_OFFSET);
 	}
 	
