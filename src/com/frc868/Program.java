@@ -24,7 +24,7 @@ public class Program {
 		
 		String url = "http://10.8.68.11/mjpg/video.mjpg";
 		
-		Camera camera = new Camera("files/test.mp4", new ToteDetector());
+		Camera camera = new Camera(url, new ToteDetector());
 		camera.addFilter(new Filter2015());
 		
 		Server.setCamera(camera);

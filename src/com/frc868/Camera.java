@@ -98,7 +98,9 @@ public class Camera {
 	 */
 	public Mat getRawFrame(){
 		
-		if(!capture.grab() || Server.getInstance(this).getIsTeleop()) { // Stream is broken of EOF or we are in Teleop
+		Server.setCamera(this);
+		
+		if(!capture.grab() || Server.getInstance().getIsTeleop()) { // Stream is broken of EOF or we are in Teleop
 			System.out.println("Stream is broken or we are at EOF or we are at 15 second time limit");
 			System.exit(99);
 		}
