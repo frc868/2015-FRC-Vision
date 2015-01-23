@@ -13,6 +13,9 @@ import org.opencv.core.Size;
 import org.opencv.imgproc.Imgproc;
 
 import com.frc868.Server;
+import com.frc868.polygons.Polygon;
+
+import edu.wpi.first.wpilibj.networktables.NetworkTable;
 
 /**
  * @author Atif Niyaz, Calvin Henry, Andrew Bass
@@ -23,9 +26,13 @@ import com.frc868.Server;
 public class ToteDetector implements Processor {
 
 	private Rect largestRect;
+	private MatOfPoint largestContour;
 	private Size camResolution;
+	private Mat targetImage;
 	
 	public Mat process(Mat source, Mat original) {
+		
+		this.targetImage = original;
 		
 		// Get Resolution of Video Feed
 		camResolution = source.size();
@@ -37,18 +44,20 @@ public class ToteDetector implements Processor {
 		// Set Largest Rect to be 0 x 0
 		largestRect = new Rect(0, 0, 0, 0);
 		
+	
 		// Iterate through all contours, each will create a bounding rectangle.
 		// The biggest rectangle / tote in view will move on in the processing.
 		for(int i = 0; i < contours.size(); i++) {
+			MatOfPoint contour = contours.get(i);
+			Rect rect = Imgproc.boundingRect(contour);
 			
-			Rect rect = Imgproc.boundingRect(contours.get(i));
-			
-			if(rect.size().area() > largestRect.size().area())
-				largestRect = rect;
+			if(isValidTote(contour) && rect.size().area() > largestRect.size().area())
+				this.largestRect = rect;
+				this.largestContour = contour;
 		}
 		
 		// Draw the Rectangle onto the Mat
-		Core.rectangle(original, largestRect.tl(), largestRect.br(), new Scalar(255, 0, 0), 2, 8, 0);
+		Core.rectangle(this.targetImage, largestRect.tl(), largestRect.br(), new Scalar(255, 0, 0), 2, 8, 0);
 
 		// Instantiate Server
 		Server s = Server.getInstance();
@@ -56,9 +65,14 @@ public class ToteDetector implements Processor {
 		// Add Values to Send to Server
 		s.setCenter(largestRect.x + largestRect.width / 2);
 		s.setDistFactor(getDistanceFactor(largestRect));
+		
+		// TODO Delete this hack
+		s.table.putNumber("Polygon Height", largestRect.height);
+		
 		s.send();
 		
-		return original;
+		
+		return this.targetImage;
 	}
 	
 	private double getDistanceFactor(Rect largestRect){
@@ -66,10 +80,9 @@ public class ToteDetector implements Processor {
 			return 0.0;
 		}
 		
-		double ratio = (double)largestRect.height / (this.camResolution.height * 0.30); 
-		System.out.println("DHAHHA; " + ratio);
+		double ratio = (double)largestRect.height / (this.camResolution.height * 0.5); 
 		
-		if (ratio > 0.95) {
+		if (ratio > 0.975) {
 			ratio = 1;
 		} else {
 			ratio -= 0.75;
@@ -78,6 +91,14 @@ public class ToteDetector implements Processor {
 		return Math.min(Math.max(1 - ratio, 0.0), 1.0);
 	}
 
+	private boolean isValidTote(MatOfPoint contour) {
+		Polygon poly = new Polygon(contour.toArray());
+		poly = poly.simplify(200);
+		poly.draw(this.targetImage);
+		
+		return true;
+	}
+	
 	/*
 	private boolean isChangeTooGreat(Rect largestRect){
 		return Math.abs(lastLargestRect.height - largestRect.height) > 140 ;

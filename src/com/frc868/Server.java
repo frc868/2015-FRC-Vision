@@ -22,7 +22,7 @@ public class Server {
 	private final double MAX_TURN_OFFSET = 1.0;
 	
 	private static Camera camera;
-	private NetworkTable table;
+	public NetworkTable table;
 	
 	private Server(){
 		NetworkTable.setTeam(868);
@@ -81,11 +81,8 @@ public class Server {
 	
 	public double getOffset(){
 		double offset =  (center - getCameraWidth() / 2.0) / getCameraWidth();
-		offset *= 1.25;
+		offset *= 1.25 * this.distFactor;
 	
-		System.out.println(center);
-		System.out.println(getCameraWidth());
-		System.out.println(offset);
 		return Math.min(offset, MAX_TURN_OFFSET);
 	}
 	
@@ -142,6 +139,9 @@ public class Server {
 				table.putBoolean("Tote Right Robot", isRobotRight());
 				table.putBoolean("Tote Left Robot", isRobotLeft());
 				table.putBoolean("Tote Center Robot", isRobotCenter());
+				
+				table.putNumber("Camera Width", camera.getResolution().width);
+				table.putNumber("Camera Height", camera.getResolution().height);
 			}
 		}).start();
 	}
