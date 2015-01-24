@@ -11,8 +11,6 @@ import org.opencv.core.Mat;
  * to a special panel in a Window.
  * 
  * It also is given a [INSERT ROBOT COMMUNICATION CLASS HERE] to send data to the robot
- * 
- * TODO Instead of passing in the original image, lets pass in a mask Mat that can be overlayed upon any image the user desires
  */
 public interface Processor {
 

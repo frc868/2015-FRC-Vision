@@ -4,6 +4,7 @@ import org.opencv.core.Core;
 import com.frc868.exceptions.CaptureException;
 import com.frc868.filters.groups.Filter2015;
 import com.frc868.gui.Window;
+import com.frc868.processors.NoProcessing;
 import com.frc868.processors.ToteDetector;
 
 /** 
@@ -20,11 +21,12 @@ public class Program {
 		System.loadLibrary("libs/opencv_ffmpeg2410_64");
 	}
 	
+	@SuppressWarnings("unused")
 	public static void main(String [] args) throws CaptureException {
 		
 		String url = "http://10.8.68.11/mjpg/video.mjpg";
 		
-		Camera camera = new Camera(url, new ToteDetector());
+		Camera camera = new Camera(url, new NoProcessing());
 		camera.addFilter(new Filter2015());
 		
 		Server.setCamera(camera);

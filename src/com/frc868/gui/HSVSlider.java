@@ -1,10 +1,8 @@
 package com.frc868.gui;
 
 import java.awt.Container;
-import java.awt.FlowLayout;
 
 import javax.swing.BoxLayout;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JSlider;

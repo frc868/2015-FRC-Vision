@@ -3,7 +3,6 @@ package com.frc868;
 import java.io.IOException;
 
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableModel;
 
 import edu.wpi.first.wpilibj.networktables.NetworkTable;
 
@@ -15,7 +14,6 @@ public class Server {
 	private double cam_width;
 	private double center;
 	private double distFactor;
-	private double offset;
 	private double speed;
 	
 	private final double THRESHOLD = 20;
@@ -39,7 +37,6 @@ public class Server {
 		table = NetworkTable.getTable("SmartDashboard");
 		
 		cam_width = camera.getResolution().getWidth();
-		offset = 0;
 		speed = 0;
 	}
 	

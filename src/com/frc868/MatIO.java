@@ -33,7 +33,6 @@ public class MatIO {
 		try {
 			return ImageIO.read(in);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			return null;
 		}

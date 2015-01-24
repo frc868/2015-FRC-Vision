@@ -3,8 +3,6 @@ package com.frc868;
 import java.awt.Dimension;
 import java.util.ArrayList;
 
-import javax.swing.plaf.basic.BasicInternalFrameTitlePane.SystemMenuBar;
-
 import org.opencv.core.Mat;
 import org.opencv.highgui.VideoCapture;
 
@@ -18,8 +16,6 @@ import com.frc868.processors.Processor;
  * Represents a camera feed that can have filters applied.
  */
 public class Camera {
-	
-	private long initTime;
 	
 	private VideoCapture capture;
 	private ArrayList<Filter> filters;

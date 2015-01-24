@@ -7,8 +7,6 @@ import javax.swing.BoxLayout;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
 
 /**
  * @author Andrew Bass and Atif Niyaz
@@ -23,9 +21,10 @@ public class ResizeDropdown extends JPanel implements ActionListener {
 	private CameraViewer viewer;
 	
 	private JLabel label;
+	@SuppressWarnings("rawtypes")
 	private JComboBox combo;
 	
-	@SuppressWarnings("rawtypes")
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public ResizeDropdown(CameraViewer viewer) {
 		
 		BoxLayout layout = new BoxLayout(this, BoxLayout.Y_AXIS);

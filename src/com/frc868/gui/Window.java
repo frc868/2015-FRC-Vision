@@ -15,7 +15,6 @@ import javax.swing.Timer;
 
 import com.frc868.Camera;
 import com.frc868.MatIO;
-import com.frc868.Server;
 
 /** 
  * @author Atif Niyaz, Calvin Henry, Andrew Bass

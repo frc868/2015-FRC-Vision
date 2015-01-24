@@ -14,6 +14,7 @@ public class SliderView extends JPanel {
 	private JPanel serverOutput;
 	private JPanel hsvSlider;
 	private JPanel speedSlider;
+	@SuppressWarnings("unused")
 	private JPanel resizeBox;
 	
 	public SliderView(CameraViewer camView) {
