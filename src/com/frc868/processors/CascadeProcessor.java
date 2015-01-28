@@ -3,13 +3,13 @@ package com.frc868.processors;
 import org.opencv.core.Core;
 import org.opencv.core.Mat;
 import org.opencv.core.MatOfRect;
-import org.opencv.core.Point;
 import org.opencv.core.Rect;
 import org.opencv.core.Scalar;
 import org.opencv.objdetect.CascadeClassifier;
 
 public class CascadeProcessor implements Processor{
 
+	FaceReflector f;
 	CascadeClassifier c;
 	public CascadeProcessor(String path){
 		c = new CascadeClassifier(path);
@@ -19,18 +19,25 @@ public class CascadeProcessor implements Processor{
 	public Mat process(Mat source, Mat edit) {
 		//Location of totes in image
 		MatOfRect detect = new MatOfRect();
-				
 		//Detect
 		c.detectMultiScale(source, detect);
 		//Convert to rectangles
 		Rect[] rect = detect.toArray();
+		//Confidence array
+		double[] confidence = new double[rect.length];
+		//label array
+		int[] label = new int[rect.length];
 				
 		System.out.println(String.format("Detected " + rect.length + "totes."));
 		//Find largest rectangle
 		
 		Rect large = new Rect(1,1, 1,1);
 		for(int i = 0; i < rect.length; i++){
-			if(rect[i].size().area() > large.size().area()) large = rect[i];
+			f.predict(edit, label, confidence);
+			
+			if(confidence[i] >= 90){
+				if(rect[i].size().area() > large.size().area()) large = rect[i];
+			}
 		}
 		Core.rectangle(edit, large.br(), large.tl(), new Scalar(0, 0, 255), 2, 8, 0);
 		/*for (Rect rect : detect.toArray()) {
