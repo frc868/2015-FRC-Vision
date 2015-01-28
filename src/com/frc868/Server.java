@@ -80,9 +80,9 @@ public class Server {
 		double offset =  (center - getCameraWidth() / 2.0) / getCameraWidth();
 		offset *= 1.25;
 	
-		System.out.println(center);
-		System.out.println(getCameraWidth());
-		System.out.println(offset);
+		//System.out.println(center);
+		//System.out.println(getCameraWidth());
+		//System.out.println(offset);
 		return Math.min(offset, MAX_TURN_OFFSET);
 	}
 	

@@ -2,10 +2,8 @@ package com.frc868;
 import org.opencv.core.Core;
 
 import com.frc868.exceptions.CaptureException;
-import com.frc868.filters.groups.Filter2015;
 import com.frc868.gui.Window;
-import com.frc868.processors.NoProcessing;
-import com.frc868.processors.ToteDetector;
+import com.frc868.processors.CascadeProcessor;
 
 /** 
  * @author Atif Niyaz, Andrew Bass, Calvin Henry
@@ -26,8 +24,8 @@ public class Program {
 		
 		String url = "http://10.8.68.11/mjpg/video.mjpg";
 		
-		Camera camera = new Camera(url, new NoProcessing());
-		camera.addFilter(new Filter2015());
+		Camera camera = new Camera(url, new CascadeProcessor("C:\\Users\\Dennys\\Desktop\\TechHOUNDS\\OpenCV\\data\\cascade.xml"));
+		camera.addFilter();
 		
 		Server.setCamera(camera);
 		Server server = Server.getInstance();
