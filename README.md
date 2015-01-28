@@ -1,6 +1,13 @@
 # 2015-target
-Main branch authored by Calvin, Atif, and Andrew Bass\n
-Cascade branch authored by Chris and Andrew Dennison\n
-_italics_ 
-*bold*
+##Main Branch 
+Authored by 
+-Calvin
+-Atif
+-Andrew Bass
+##Cascade branch 
+Authored by 
+-Chris
+-Andrew Dennison
+*italics* 
+**bold**
  ~~strike-through~~
