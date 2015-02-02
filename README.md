@@ -1,8 +1,8 @@
 # 2015-target
 ##Main Branch 
 Authored by 
-* Calvin
-* Atif
+* Calvin Henry
+* Atif Niyaz
 * Andrew Bass
 
 ##Cascade branch 
