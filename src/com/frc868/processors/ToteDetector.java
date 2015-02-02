@@ -63,7 +63,7 @@ public class ToteDetector implements Processor {
 		Server s = Server.getInstance();
 		
 		// Add Values to Send to Server
-		s.setCenter(largestRect.x + largestRect.width / 2);
+		s.setCenter(calculateCenter());
 		s.setDistFactor(getDistanceFactor(largestRect));
 		
 		// TODO Delete this hack
@@ -71,10 +71,21 @@ public class ToteDetector implements Processor {
 		
 		s.send();
 		
+		System.out.println(calculateCenter());
 		
 		return this.targetImage;
 	}
 	
+	private double calculateCenter() {
+		
+		Rect rect = new Rect();
+		rect.height = largestRect.height;
+		rect.width = (int) (largestRect.x + largestRect.width - (1.5 * largestRect.height));
+		Server.getInstance().setRect(rect);
+		return largestRect.x + largestRect.width - (1.5 * largestRect.height/ 2.0);
+		// More accurate calculation of center?
+	}
+
 	private double getDistanceFactor(Rect largestRect){
 		if(isInBottomCorner(largestRect)){
 			return 0.0;
@@ -85,12 +96,12 @@ public class ToteDetector implements Processor {
 		if (ratio > 0.975) {
 			ratio = 1;
 		} else {
-			ratio -= 0.75;
+			ratio -= 0.4;
 		}
 		
 		return Math.min(Math.max(1 - ratio, 0.0), 1.0);
 	}
-
+	
 	private boolean isValidTote(MatOfPoint contour) {
 		Polygon poly = new Polygon(contour.toArray());
 		poly = poly.simplify(200);

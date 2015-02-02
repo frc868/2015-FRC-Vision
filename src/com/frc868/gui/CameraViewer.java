@@ -42,14 +42,7 @@ public class CameraViewer extends JComponent {
 	}
 	
 	public void paintComponent(Graphics g){
-		BufferedImage image = MatIO.toImage(camera.getProcessedFrame());
-
-		int width = (int) (cameraResolution.width * scale);
-		int height = (int) (cameraResolution.height * scale);
-		
-		Image scaled = image.getScaledInstance(width, height, BufferedImage.SCALE_SMOOTH);
-		
-		g.drawImage(scaled, 0, 0, null);
+		g.drawImage(MatIO.toImage(camera.getProcessedFrame()), 0, 0, null);
 	}
 	
 }

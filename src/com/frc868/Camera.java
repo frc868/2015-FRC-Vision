@@ -114,8 +114,10 @@ public class Camera {
 	/**
 	 * Get's image frame from camera with filtering applied
 	 */
-	public Mat getFilteredFrame(){
-		Mat image = this.getRawFrame();
+	public Mat getFilteredFrame(Mat image){
+		
+		if(image == null)
+			image = this.getRawFrame();
 		Mat filtered = this.applyFilters(image.clone()); 
 		
 		return filtered;
@@ -126,7 +128,7 @@ public class Camera {
 	 */
 	public Mat getProcessedFrame(){
 		Mat original = this.getRawFrame();
-		Mat filtered = this.getFilteredFrame();
+		Mat filtered = this.getFilteredFrame(original);
 		
 		return this.processor.process(filtered, original);
 	}

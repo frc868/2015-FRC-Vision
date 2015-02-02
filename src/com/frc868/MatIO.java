@@ -1,7 +1,9 @@
 package com.frc868;
 
 import java.awt.image.BufferedImage;
+import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 
@@ -9,7 +11,12 @@ import javax.imageio.ImageIO;
 
 import org.opencv.core.Mat;
 import org.opencv.core.MatOfByte;
+import org.opencv.core.Scalar;
 import org.opencv.highgui.Highgui;
+
+import com.frc868.filters.YellowTote;
+import com.frc868.filters.groups.Filter2015;
+import com.frc868.processors.ToteDetector;
 
 /**
  * @author Andrew Bass
@@ -37,6 +44,22 @@ public class MatIO {
 			e.printStackTrace();
 			return null;
 		}
+	}
+	
+	public static void receiveHSV() throws Exception {
+				
+		BufferedReader buffer = new BufferedReader(new FileReader("C:/hsv.txt"));
+		
+		Scalar low = new Scalar(Double.parseDouble(buffer.readLine().trim()),
+				Double.parseDouble(buffer.readLine().trim()),
+				Double.parseDouble(buffer.readLine().trim()));
+		
+		Scalar high = new Scalar(Double.parseDouble(buffer.readLine().trim()),
+				Double.parseDouble(buffer.readLine().trim()),
+				Double.parseDouble(buffer.readLine().trim()));
+		
+		YellowTote.defineRange(low, high);
+		buffer.close();
 	}
 }
 	

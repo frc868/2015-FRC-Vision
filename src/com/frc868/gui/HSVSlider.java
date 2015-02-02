@@ -100,6 +100,11 @@ public class HSVSlider extends JPanel implements ChangeListener{
 		YellowTote.defineRange(low, high);
 	}
 	
-	
+	public Scalar[] getHSVValues() {
+		Scalar low = new Scalar(h.getValue(), s.getValue(), v.getValue());
+		Scalar high = new Scalar(h.getValue() + H_RANGE, s.getValue() + S_RANGE, v.getValue() + V_RANGE);
+		
+		return  new Scalar[] {low, high};
+	}
 }
  

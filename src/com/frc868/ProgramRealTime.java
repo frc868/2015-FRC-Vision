@@ -1,15 +1,9 @@
 package com.frc868;
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-
 import org.opencv.core.Core;
-import org.opencv.core.Scalar;
 
 import com.frc868.exceptions.CaptureException;
-import com.frc868.filters.YellowTote;
 import com.frc868.filters.groups.Filter2015;
-import com.frc868.gui.Window;
+import com.frc868.gui.RunWindow;
 import com.frc868.processors.ToteDetector;
 
 /** 
@@ -17,7 +11,7 @@ import com.frc868.processors.ToteDetector;
  *
  * Main Program Class
  */
-public class Program {
+public class ProgramRealTime {
 	
 	static {
 		System.out.println("Loading OpenCV 2.4.10");
@@ -39,7 +33,10 @@ public class Program {
 		Server server = Server.getInstance();
 		server.setSpeed(0.8);
 		
-		Window window = new Window("Vision Viewer 2015", camera, "C:/Vision2015/VISION_FILTER_PROS");
-	}
+		RunWindow window = new RunWindow("Vision 2015 RunTime");
+		
+		while(true)
+			camera.getProcessedFrame();
 
+	}
 }

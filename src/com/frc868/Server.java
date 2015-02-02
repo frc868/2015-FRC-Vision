@@ -5,6 +5,8 @@ import java.io.IOException;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 
+import org.opencv.core.Rect;
+
 import edu.wpi.first.wpilibj.networktables.NetworkTable;
 
 
@@ -17,6 +19,9 @@ public class Server {
 	private double distFactor;
 	private double offset;
 	private double speed;
+	
+	private double rectWidth;
+	private double rectHeight;
 	
 	private final double THRESHOLD = 20;
 	private final double MAX_TURN_OFFSET = 1.0;
@@ -75,6 +80,19 @@ public class Server {
 		this.speed = speed;
 	}
 	
+	public void setRect(Rect rect) {
+		this.rectHeight = rect.height;
+		this.rectWidth = rect.width;
+	}
+	
+	public double getRectWidth() {
+		return this.rectWidth;
+	}
+	
+	public double getRectHeight() {
+		return this.rectHeight;
+	}
+	
 	public double getCenter() {
 		return center;
 	}
@@ -122,6 +140,8 @@ public class Server {
 		model.addRow(new Object[] {"Offset", this.getOffset()} );
 		model.addRow(new Object[] {"Dist Factor", this.getDistanceFactor()} );
 		model.addRow(new Object[] {"Center", this.getCenter()} );
+		model.addRow(new Object[] {"Rect Width", this.getRectWidth()});
+		model.addRow(new Object[] {"Rect Height", this.getRectHeight()});
 		
 		return model;
 	}
@@ -142,6 +162,8 @@ public class Server {
 				
 				table.putNumber("Camera Width", camera.getResolution().width);
 				table.putNumber("Camera Height", camera.getResolution().height);
+				
+				table.putBoolean("Running Vision", true);
 			}
 		}).start();
 	}
