@@ -59,7 +59,7 @@ public class SliderView extends JPanel implements ActionListener {
 			Scalar[] values = ((HSVSlider) hsvSlider).getHSVValues();
 			
 			try {
-				BufferedWriter writer = new BufferedWriter(new PrintWriter("C:/hsv.txt"));
+				BufferedWriter writer = new BufferedWriter(new PrintWriter("C:\\Vision2015\\HSV.txt"));
 				
 				writer.write(Double.toString(values[0].val[0]));
 				writer.newLine();

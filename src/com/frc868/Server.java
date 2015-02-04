@@ -44,10 +44,9 @@ public class Server {
 		table = NetworkTable.getTable("SmartDashboard");
 		
 		cam_width = camera.getResolution().getWidth();
-		offset = 0;
+		setCameraCenter(cam_width/2);
 		speed = 0;
-	}
-	
+	}	
 	public static Server getInstance(){
 		if (instance == null){
 			instance = new Server();
@@ -66,6 +65,10 @@ public class Server {
 	
 	public static void setCamera(Camera camera) {
 		Server.camera = camera;
+	}
+	
+	public void setCameraCenter(double offset) {
+		this.offset = offset;
 	}
 	
 	public void setCenter(double center) {
@@ -98,7 +101,7 @@ public class Server {
 	}
 	
 	public double getOffset(){
-		double offset =  (center - getCameraWidth() / 2.0) / getCameraWidth();
+		double offset =  (center - this.offset) / getCameraWidth();
 		offset *= 1.25 * this.distFactor;
 	
 		return Math.min(offset, MAX_TURN_OFFSET);

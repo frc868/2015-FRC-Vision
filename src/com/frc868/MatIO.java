@@ -46,9 +46,9 @@ public class MatIO {
 		}
 	}
 	
-	public static void receiveHSV() throws Exception {
+	public static void receiveHSV(String fileLoc) throws Exception {
 				
-		BufferedReader buffer = new BufferedReader(new FileReader("C:/hsv.txt"));
+		BufferedReader buffer = new BufferedReader(new FileReader(fileLoc));
 		
 		Scalar low = new Scalar(Double.parseDouble(buffer.readLine().trim()),
 				Double.parseDouble(buffer.readLine().trim()),

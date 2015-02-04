@@ -63,7 +63,7 @@ public class ToteDetector implements Processor {
 		Server s = Server.getInstance();
 		
 		// Add Values to Send to Server
-		s.setCenter(calculateCenter());
+		s.setCenter(largestRect.x + largestRect.width / 2.0);
 		s.setDistFactor(getDistanceFactor(largestRect));
 		
 		// TODO Delete this hack
@@ -92,13 +92,7 @@ public class ToteDetector implements Processor {
 		}
 		
 		double ratio = (double)largestRect.height / (this.camResolution.height * 0.5); 
-		
-		if (ratio > 0.975) {
-			ratio = 1;
-		} else {
-			ratio -= 0.4;
-		}
-		
+		ratio = ratio > 0.975 ? 1 : ratio - 0.4;
 		return Math.min(Math.max(1 - ratio, 0.0), 1.0);
 	}
 	
@@ -121,11 +115,7 @@ public class ToteDetector implements Processor {
 		double distFromBottomRight = camResolution.width - (largestRect.x + largestRect.width);
 		double distFromBottomLeft = largestRect.x;	
 		
-		if (distFromBottomRight < eps || distFromBottomLeft < eps) {
-			return true;
-		}
-		
-		return false;
+		return distFromBottomRight < eps || distFromBottomLeft < eps;
 	}
 }
 

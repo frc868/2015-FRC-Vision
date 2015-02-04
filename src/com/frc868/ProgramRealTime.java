@@ -22,7 +22,7 @@ public class ProgramRealTime {
 	
 	public static void main(String [] args) throws CaptureException, Exception {
 		
-		MatIO.receiveHSV();
+		MatIO.receiveHSV("C:\\Vision2015\\HSV.txt");
 		
 		String url = "http://10.8.68.11/mjpg/video.mjpg";
 

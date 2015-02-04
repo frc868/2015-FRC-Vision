@@ -1,13 +1,7 @@
 package com.frc868;
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-
 import org.opencv.core.Core;
-import org.opencv.core.Scalar;
 
 import com.frc868.exceptions.CaptureException;
-import com.frc868.filters.YellowTote;
 import com.frc868.filters.groups.Filter2015;
 import com.frc868.gui.Window;
 import com.frc868.processors.ToteDetector;
@@ -28,7 +22,7 @@ public class Program {
 	
 	public static void main(String [] args) throws CaptureException, Exception {
 		
-		MatIO.receiveHSV();
+		MatIO.receiveHSV("C:\\Vision2015\\HSV.txt");
 		
 		String url = "http://10.8.68.11/mjpg/video.mjpg";
 
