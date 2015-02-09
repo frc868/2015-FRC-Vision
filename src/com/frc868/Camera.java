@@ -65,12 +65,7 @@ public class Camera {
 		
 		if(!capture.isOpened()) {
 			System.out.println("Could not open specified filepath / url, defaulting to first connected hardware camera.");
-			capture.open(0);
-			
-			if (!capture.isOpened()) {
-				System.out.println("Could not open first hardware camera");
-				throw new CaptureException("Cannot open camera");
-			}
+			capture.open(0);//System.exit(-1);
 		}
 		
 		this.filters = new ArrayList<Filter>();	

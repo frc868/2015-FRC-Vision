@@ -44,7 +44,6 @@ public class Server {
 		table = NetworkTable.getTable("SmartDashboard");
 		
 		cam_width = camera.getResolution().getWidth();
-		setCameraCenter(cam_width/2);
 		speed = 0;
 	}	
 	public static Server getInstance(){
@@ -101,10 +100,10 @@ public class Server {
 	}
 	
 	public double getOffset(){
-		double offset =  (center - this.offset) / getCameraWidth();
+		double offset =  (center - getCameraWidth() / 2.0) / getCameraWidth();
 		offset *= 1.25 * this.distFactor;
 	
-		return Math.min(offset, MAX_TURN_OFFSET);
+		return offset > 0 ? Math.min(offset, MAX_TURN_OFFSET) * 2 : -Math.max(offset, -MAX_TURN_OFFSET) * 2;
 	}
 	
 	public double getSpeed() {
@@ -157,16 +156,6 @@ public class Server {
 				
 				table.putNumber("Tote Offset Percentage", getOffset());
 				table.putNumber("Tote Dist Factor", getDistanceFactor());
-				table.putNumber("Tote Speed", speed);
-				
-				table.putBoolean("Tote Right Robot", isRobotRight());
-				table.putBoolean("Tote Left Robot", isRobotLeft());
-				table.putBoolean("Tote Center Robot", isRobotCenter());
-				
-				table.putNumber("Camera Width", camera.getResolution().width);
-				table.putNumber("Camera Height", camera.getResolution().height);
-				
-				table.putBoolean("Running Vision", true);
 			}
 		}).start();
 	}

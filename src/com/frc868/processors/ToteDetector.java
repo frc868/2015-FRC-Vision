@@ -65,10 +65,10 @@ public class ToteDetector implements Processor {
 		// Add Values to Send to Server
 		s.setCenter(largestRect.x + largestRect.width / 2.0);
 		s.setDistFactor(getDistanceFactor(largestRect));
-		
+
 		// TODO Delete this hack
 		s.table.putNumber("Polygon Height", largestRect.height);
-		
+		System.out.println(getDistance(largestRect.height));
 		s.send();
 		
 		System.out.println(calculateCenter());
@@ -92,8 +92,16 @@ public class ToteDetector implements Processor {
 		}
 		
 		double ratio = (double)largestRect.height / (this.camResolution.height * 0.5); 
-		ratio = ratio > 0.975 ? 1 : ratio - 0.4;
-		return Math.min(Math.max(1 - ratio, 0.0), 1.0);
+		ratio = ratio > 0.3 ? 0.3 : ratio - 0.25;
+		return Math.min(Math.max(1 - ratio, 0.0), 0.3);
+	}
+	
+	private double getDistance(double x) {
+		return Math.pow(10, -8) * 7 * x * x * x * x 
+				- Math.pow(10, -5) * 9 * x * x * x 
+				+ 0.0284 * x * x
+				- 3.5087 * x
+				+ 189.73;
 	}
 	
 	private boolean isValidTote(MatOfPoint contour) {
