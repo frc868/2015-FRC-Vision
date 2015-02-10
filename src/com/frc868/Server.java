@@ -103,7 +103,7 @@ public class Server {
 		double offset =  (center - getCameraWidth() / 2.0) / getCameraWidth();
 		offset *= 1.25 * this.distFactor;
 	
-		return offset > 0 ? Math.min(offset, MAX_TURN_OFFSET) * 2 : -Math.max(offset, -MAX_TURN_OFFSET) * 2;
+		return offset > 0 ? Math.min(offset * 2, MAX_TURN_OFFSET) : -Math.max(offset * 2, -MAX_TURN_OFFSET);
 	}
 	
 	public double getSpeed() {
