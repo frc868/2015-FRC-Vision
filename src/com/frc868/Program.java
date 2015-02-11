@@ -15,25 +15,22 @@ public class Program {
 	
 	static {
 		System.out.println("Loading OpenCV 2.4.10");
-		System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
+		System.loadLibrary(Constants.LIB_OPENCV);
 		System.out.println("Loading OpenCV FFMPEG Libs x64_86");
-		System.loadLibrary("opencv_ffmpeg2410_64");
+		System.loadLibrary(Constants.LIB_FFMPEG);
 	}
 	
 	public static void main(String [] args) throws CaptureException, Exception {
 		
-		MatIO.receiveHSV("C:\\Vision2015\\HSV.txt");
+		FileIO.receiveHSV(Constants.FILE_SAVE_PATH);
 		
-		String url = "http://10.8.68.11/mjpg/video.mjpg";
-
-		Camera camera = new Camera(url, new ToteDetector());
+		Camera camera = new Camera(Constants.CAMERA_FEED_URL, new ToteDetector());
 		camera.addFilter(new Filter2015());
 		
 		Server.setCamera(camera);
 		Server server = Server.getInstance();
-		server.setSpeed(0.8);
 		
-		Window window = new Window("Vision Viewer 2015", camera, "C:/Vision2015/VISION_FILTER_PROS");
+		Window window = new Window(camera, "Vision Tool 2015");
 	}
 
 }

@@ -13,6 +13,7 @@ import javax.swing.JPanel;
 
 import org.opencv.core.Scalar;
 
+import com.frc868.Constants;
 import com.frc868.Server;
 
 @SuppressWarnings("serial")
@@ -21,7 +22,6 @@ public class SliderView extends JPanel implements ActionListener {
 	private JPanel serverOutput;
 	private JPanel hsvSlider;
 	private JPanel speedSlider;
-	private JPanel resizeBox;
 	
 	private JButton saveButton;
 	
@@ -34,12 +34,10 @@ public class SliderView extends JPanel implements ActionListener {
 		serverOutput.setPreferredSize(new Dimension(80, 150));
 		
 		hsvSlider = new HSVSlider();
-		speedSlider = new SpeedSlider(Server.getInstance());
 		saveButton = new JButton("Save HSV Values");
 		saveButton.addActionListener(this);
-		//resizeBox = new ResizeDropdown(camView);
 		
-		JComponent[] components = {serverOutput, hsvSlider, speedSlider, saveButton /*resizeBox */};
+		JComponent[] components = {serverOutput, hsvSlider, speedSlider, saveButton};
 		
 		for (JComponent comp : components) {
 			add(comp);
@@ -59,25 +57,13 @@ public class SliderView extends JPanel implements ActionListener {
 			Scalar[] values = ((HSVSlider) hsvSlider).getHSVValues();
 			
 			try {
-				BufferedWriter writer = new BufferedWriter(new PrintWriter("C:\\Vision2015\\HSV.txt"));
+				BufferedWriter writer = new BufferedWriter(new PrintWriter(Constants.FILE_SAVE_PATH));
 				
-				writer.write(Double.toString(values[0].val[0]));
-				writer.newLine();
-				
-				writer.write(Double.toString(values[0].val[1]));
-				writer.newLine();
-				
-				writer.write(Double.toString(values[0].val[2]));
-				writer.newLine();
-				
-				writer.write(Double.toString(values[1].val[0]));
-				writer.newLine();
-				
-				writer.write(Double.toString(values[1].val[1]));
-				writer.newLine();
-				
-				writer.write(Double.toString(values[1].val[2]));
-				writer.newLine();
+				for(Scalar val : values)
+					for(double value : val.val) {
+						writer.write(Double.toString(value));
+						writer.newLine();
+					}
 				
 				writer.flush();
 				writer.close();

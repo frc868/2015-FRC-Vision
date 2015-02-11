@@ -3,8 +3,6 @@ package com.frc868;
 import java.awt.Dimension;
 import java.util.ArrayList;
 
-import javax.swing.plaf.basic.BasicInternalFrameTitlePane.SystemMenuBar;
-
 import org.opencv.core.Mat;
 import org.opencv.highgui.VideoCapture;
 
@@ -18,8 +16,6 @@ import com.frc868.processors.Processor;
  * Represents a camera feed that can have filters applied.
  */
 public class Camera {
-	
-	private long initTime;
 	
 	private VideoCapture capture;
 	private ArrayList<Filter> filters;
@@ -95,7 +91,7 @@ public class Camera {
 		
 		Server.setCamera(this);
 		
-		if(!capture.grab() || Server.getInstance().getIsTeleop()) { // Stream is broken of EOF or we are in Teleop
+		if(!capture.grab()) { // Stream is broken of EOF or we are in Teleop
 			System.out.println("Stream is broken or we are at EOF or we are at 15 second time limit");
 			System.exit(99);
 		}

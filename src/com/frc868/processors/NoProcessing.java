@@ -10,6 +10,11 @@ import org.opencv.core.Mat;
  */
 public class NoProcessing implements Processor {
 	
+	/**
+	 * @param source it doesn't matter
+	 * @param original the original image
+	 * @return the original image
+	 */
 	public Mat process(Mat source, Mat original){
 		return original;
 	}

@@ -1,37 +1,26 @@
 package com.frc868.gui;
 
 import java.awt.Container;
-import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.image.BufferedImage;
-import java.io.File;
 
-import javax.imageio.ImageIO;
 import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.Timer;
-
-import com.frc868.Camera;
-import com.frc868.MatIO;
-import com.frc868.Server;
 
 /** 
- * @author Atif Niyaz, Calvin Henry, Andrew Bass
+ * @author Atif Niyaz
  * 
- * Creates a new Window with the Camera
+ * Creates the window for Vision on drivers
  */
 @SuppressWarnings("serial")
-public class RunWindow extends JFrame implements ActionListener {
+public class WindowRealTime extends JFrame implements ActionListener {
 	
-	private JButton save;
 	private Container pane;
 	
 	/**
 	 * Creates a Window with a specified Camera
 	 */
-	public RunWindow(String title){
+	public WindowRealTime(String title){
 		
 		pane = this.getContentPane();
 		JButton button = new JButton("Exit Vision RunTime");

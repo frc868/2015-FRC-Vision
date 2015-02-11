@@ -19,11 +19,11 @@ import com.frc868.filters.groups.Filter2015;
 import com.frc868.processors.ToteDetector;
 
 /**
- * @author Andrew Bass
+ * @author Atif Niyaz
  * 
- * Static class that contains useful functions for outputing and saving Matrices
+ * Reads and writes HSV values from the file.
  */
-public class MatIO {
+public class FileIO {
 	
 	/**
 	 * Converts a Mat containing color values to a BufferedImage that can be drawn or saved

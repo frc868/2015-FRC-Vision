@@ -44,13 +44,11 @@ public class Server {
 		table = NetworkTable.getTable("SmartDashboard");
 		
 		cam_width = camera.getResolution().getWidth();
-		speed = 0;
 	}	
+	
 	public static Server getInstance(){
-		if (instance == null){
+		if (instance == null)
 			instance = new Server();
-		}
-		
 		return instance;
 	}
 	
@@ -103,7 +101,7 @@ public class Server {
 		double offset =  (center - getCameraWidth() / 2.0) / getCameraWidth();
 		offset *= 1.25 * this.distFactor;
 	
-		return offset > 0 ? Math.min(offset * 2, MAX_TURN_OFFSET) : -Math.max(offset * 2, -MAX_TURN_OFFSET);
+		return offset > 0 ? Math.min(offset, MAX_TURN_OFFSET) * 2.25 : Math.max(offset, -MAX_TURN_OFFSET) * 2.25;
 	}
 	
 	public double getSpeed() {
@@ -139,15 +137,18 @@ public class Server {
 		model.addColumn("Key");
 		model.addColumn("Value");
 		
-		model.addRow(new Object[] {"Offset", this.getOffset()} );
-		model.addRow(new Object[] {"Dist Factor", this.getDistanceFactor()} );
-		model.addRow(new Object[] {"Center", this.getCenter()} );
-		model.addRow(new Object[] {"Rect Width", this.getRectWidth()});
-		model.addRow(new Object[] {"Rect Height", this.getRectHeight()});
+		model.addRow(new Object[] {"Offset", this.getOffset()}				);
+		model.addRow(new Object[] {"Dist Factor", this.getDistanceFactor()}	);
+		model.addRow(new Object[] {"Center", this.getCenter()}				);
+		model.addRow(new Object[] {"Rect Width", this.getRectWidth()}		);
+		model.addRow(new Object[] {"Rect Height", this.getRectHeight()}		);
 		
 		return model;
 	}
 	
+	/**
+	 * Send values to the robot 
+	 */
 	public void send() {
 		
 		(new Thread(){
@@ -158,9 +159,5 @@ public class Server {
 				table.putNumber("Tote Dist Factor", getDistanceFactor());
 			}
 		}).start();
-	}
-	
-	public boolean getIsTeleop() {
-		return table.getBoolean("Teleop", false);
 	}
 }
