@@ -12,9 +12,11 @@ public class Constants {
 	
 	public static final String FILE_SAVE_PATH = "C:\\Vision2015\\HSV.txt";
 	
-	public static final double MAX_POWER_TO_DRIVE = 0.3;
-	public static final double POWER_REDUCTION = 0.3;
+	public static final double MAX_POWER_TO_DRIVE = 0.4;
+	public static final double POWER_REDUCTION = 0.4;
 	
-	public static final double PERCENT_CAMERA = 30;
+	public static final double OFFSET_FACTOR = 2;
+	
+	public static final double PERCENT_CAMERA = 50;
 	
 }

@@ -21,7 +21,6 @@ public class SliderView extends JPanel implements ActionListener {
 	
 	private JPanel serverOutput;
 	private JPanel hsvSlider;
-	private JPanel speedSlider;
 	
 	private JButton saveButton;
 	
@@ -37,7 +36,7 @@ public class SliderView extends JPanel implements ActionListener {
 		saveButton = new JButton("Save HSV Values");
 		saveButton.addActionListener(this);
 		
-		JComponent[] components = {serverOutput, hsvSlider, speedSlider, saveButton};
+		JComponent[] components = {serverOutput, hsvSlider, saveButton};
 		
 		for (JComponent comp : components) {
 			add(comp);

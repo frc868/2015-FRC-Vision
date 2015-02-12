@@ -2,6 +2,7 @@ package com.frc868.gui;
 
 import java.awt.Container;
 import java.awt.FlowLayout;
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JFrame;
@@ -16,7 +17,7 @@ import com.frc868.Camera;
  * Creates a new Window with the Camera
  */
 @SuppressWarnings("serial")
-public class Window extends JFrame {
+public class Window extends JFrame implements ActionListener {
 	
 	private CameraViewer viewer;
 	
@@ -54,4 +55,13 @@ public class Window extends JFrame {
 			
 		timer.start();
 	}
+	
+	/**
+	 * This method is called as fast as possible by the timer and initiates repainting 
+	 */
+	public void actionPerformed(ActionEvent actionEvent) {
+		this.revalidate();
+		this.repaint();
+		this.pack();
+ 	}
 }

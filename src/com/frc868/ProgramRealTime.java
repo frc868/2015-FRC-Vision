@@ -28,9 +28,9 @@ public class ProgramRealTime {
 		camera.addFilter(new Filter2015());
 		
 		Server.setCamera(camera);
-		Server server = Server.getInstance();
+		Server.getInstance();
 		
-		WindowRealTime window = new WindowRealTime("Vision 2015 RunTime");
+		new WindowRealTime("Vision 2015 RunTime");
 		
 		while(true)
 			camera.getProcessedFrame();

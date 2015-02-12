@@ -50,7 +50,7 @@ public class ToteDetector implements Processor {
 			MatOfPoint contour = contours.get(i);
 			Rect rect = Imgproc.boundingRect(contour);
 			
-			if(isValidTote(contour) && rect.size().area() > largestRect.size().area())
+			if(rect.size().area() > largestRect.size().area())
 				this.largestRect = rect;
 		}
 		
@@ -83,14 +83,18 @@ public class ToteDetector implements Processor {
 	
 	private double getDistanceFactor(Rect largestRect){
 		if(isInBottomCorner(largestRect)){
-			return -0.001;
+			return 0.0;
 		}
 		
 		double ratio = (double)largestRect.height / 
-				(this.camResolution.height * Constants.MAX_POWER_TO_DRIVE / 100); 
+				(this.camResolution.height * Constants.PERCENT_CAMERA / 100); 
 		
-		ratio = ratio > Constants.MAX_POWER_TO_DRIVE ? Constants.MAX_POWER_TO_DRIVE : ratio - Constants.POWER_REDUCTION;
-		return Math.min(Math.max(1 - ratio, 0.0), Constants.MAX_POWER_TO_DRIVE);
+		ratio = Math.min(Math.max(1 - ratio, 0.0), Constants.MAX_POWER_TO_DRIVE);
+		ratio = ratio > Constants.MAX_POWER_TO_DRIVE ? Constants.MAX_POWER_TO_DRIVE : 
+			(ratio > Constants.POWER_REDUCTION ? ratio - Constants.POWER_REDUCTION : 0.0);
+		
+		System.out.println(ratio);
+		return ratio;
 	}
 	
 	private boolean isValidTote(MatOfPoint contour) {

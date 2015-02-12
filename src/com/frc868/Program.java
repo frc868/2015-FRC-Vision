@@ -28,9 +28,9 @@ public class Program {
 		camera.addFilter(new Filter2015());
 		
 		Server.setCamera(camera);
-		Server server = Server.getInstance();
+		Server.getInstance();
 		
-		Window window = new Window(camera, "Vision Tool 2015");
+		new Window(camera, "Vision Tool 2015");
 	}
 
 }
