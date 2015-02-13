@@ -97,7 +97,7 @@ public class ToteDetector implements Processor {
 //		
 
 		ratio = (1-ratio) > Constants.MAX_POWER_TO_DRIVE ? Constants.MAX_POWER_TO_DRIVE : 
-			(ratio > .05 ? ratio : 0);
+			(1-ratio > .05 ? 1-ratio : 0);
 		
 		System.out.println("Adjusted Ratio " + ratio);
 		

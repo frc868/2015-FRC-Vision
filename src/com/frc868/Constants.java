@@ -17,6 +17,6 @@ public class Constants {
 	
 	public static final double OFFSET_FACTOR = 0.2;
 	
-	public static final double PERCENT_CAMERA = 50;
+	public static final double PERCENT_CAMERA = 57.5;
 	
 }
