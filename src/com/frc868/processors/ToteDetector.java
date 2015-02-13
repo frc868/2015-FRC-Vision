@@ -89,12 +89,20 @@ public class ToteDetector implements Processor {
 		double ratio = (double)largestRect.height / 
 				(this.camResolution.height * Constants.PERCENT_CAMERA / 100); 
 		
-		ratio = Math.min(Math.max(1 - ratio, 0.0), Constants.MAX_POWER_TO_DRIVE);
-		ratio = ratio > Constants.MAX_POWER_TO_DRIVE ? Constants.MAX_POWER_TO_DRIVE : 
-			(ratio > Constants.POWER_REDUCTION ? ratio - Constants.POWER_REDUCTION : 0.0);
+		System.out.println("Unadjusted Ratio: " + (1-ratio));
+//		
+//		ratio = Math.min(Math.max(1 - ratio, 0.0), Constants.MAX_POWER_TO_DRIVE);
+//		ratio = ratio > Constants.MAX_POWER_TO_DRIVE ? Constants.MAX_POWER_TO_DRIVE : 
+//			(ratio > 0 ? ratio : 0.0);
+//		
+
+		ratio = (1-ratio) > Constants.MAX_POWER_TO_DRIVE ? Constants.MAX_POWER_TO_DRIVE : 
+			(ratio > .05 ? ratio : 0);
 		
-		System.out.println(ratio);
-		return ratio;
+		System.out.println("Adjusted Ratio " + ratio);
+		
+		return Math.min(Math.max(ratio, 0.0), Constants.MAX_POWER_TO_DRIVE);
+//		return ratio;
 	}
 	
 	private boolean isValidTote(MatOfPoint contour) {
