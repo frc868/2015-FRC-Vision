@@ -15,8 +15,6 @@ import org.opencv.core.Scalar;
 import org.opencv.highgui.Highgui;
 
 import com.frc868.filters.YellowTote;
-import com.frc868.filters.groups.Filter2015;
-import com.frc868.processors.ToteDetector;
 
 /**
  * @author Atif Niyaz

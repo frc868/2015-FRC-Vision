@@ -1,6 +1,4 @@
 package com.frc868;
-import org.opencv.core.Core;
-
 import com.frc868.exceptions.CaptureException;
 import com.frc868.filters.groups.Filter2015;
 import com.frc868.gui.Window;

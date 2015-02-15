@@ -3,12 +3,10 @@ package com.frc868;
 import java.io.IOException;
 
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableModel;
 
 import org.opencv.core.Rect;
 
 import edu.wpi.first.wpilibj.networktables.NetworkTable;
-
 
 public class Server {
 	
@@ -140,7 +138,7 @@ public class Server {
 		
 		model.addRow(new Object[] {"Offset", this.getOffset()}				);
 		model.addRow(new Object[] {"Dist Factor", this.getDistanceFactor()}	);
-		model.addRow(new Object[] {"Center", this.getCenter()}				);
+		model.addRow(new Object[] {"Offest from Center", 160-this.getCenter()}			);
 		model.addRow(new Object[] {"Rect Width", this.getRectWidth()}		);
 		model.addRow(new Object[] {"Rect Height", this.getRectHeight()}		);
 		
