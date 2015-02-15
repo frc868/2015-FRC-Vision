@@ -15,7 +15,7 @@ public class Constants {
 	public static final double MAX_POWER_TO_DRIVE = 0.5;
 	public static final double POWER_REDUCTION = 0.2;
 	
-	public static final double OFFSET_FACTOR = 0;
+	public static final double OFFSET_FACTOR = 0.1;
 	
 	public static final double PERCENT_CAMERA = 58.5;//57.5;
 	
