@@ -21,6 +21,7 @@ public class ProgramRealTime {
 	
 	public static void main(String [] args) throws CaptureException, Exception {
 		
+		FileIO.updateConstants(Constants.CONST_PATH);
 		FileIO.receiveHSV(Constants.FILE_SAVE_PATH);
 		
 		Camera camera = new Camera(Constants.CAMERA_FEED_URL, new ToteDetector());
@@ -29,6 +30,14 @@ public class ProgramRealTime {
 		Server.setCamera(camera);
 		Server.getInstance();
 		
-		new WindowRealTime(camera, "Vision 2015 RunTime");
+		(new Thread() {
+			
+			public void run() {
+				while(true)
+					camera.getProcessedFrame();
+			}
+		}).start();
+		
+		new WindowRealTime(camera, "TechHOUNDS Vision RunTime 2015");
 	}
 }

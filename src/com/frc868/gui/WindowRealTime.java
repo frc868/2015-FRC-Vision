@@ -30,8 +30,6 @@ public class WindowRealTime extends JFrame implements ActionListener {
 		
 		this.camera = camera;
 		
-		this.timer = new Timer(0, (ActionListener) this);
-		
 		pane = this.getContentPane();
 		JButton button = new JButton("Exit Vision RunTime");
 		button.addActionListener(actionEvent -> {
@@ -47,8 +45,6 @@ public class WindowRealTime extends JFrame implements ActionListener {
 		
 		this.setLocationRelativeTo(null);
 		this.setVisible(true);
-		
-		timer.start();
 	}
 
 	/**

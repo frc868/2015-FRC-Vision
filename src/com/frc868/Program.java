@@ -1,8 +1,6 @@
 package com.frc868;
 import com.frc868.exceptions.CaptureException;
 import com.frc868.filters.groups.Filter2015;
-import com.frc868.gui.ConstantsEditor;
-import com.frc868.gui.Editor;
 import com.frc868.gui.Window;
 import com.frc868.processors.ToteDetector;
 
@@ -22,6 +20,7 @@ public class Program {
 	
 	public static void main(String [] args) throws CaptureException, Exception {
 		
+		FileIO.updateConstants(Constants.CONST_PATH);
 		FileIO.receiveHSV(Constants.FILE_SAVE_PATH);
 		
 		Camera camera = new Camera(Constants.CAMERA_FEED_URL, new ToteDetector());
@@ -30,7 +29,7 @@ public class Program {
 		Server.setCamera(camera);
 		Server.getInstance();
 		
-		new Window(camera, "Vision Tool 2015");
+		new Window(camera, "TechHOUNDS Vision Tool 2015");
 		//new Editor();
 	}
 

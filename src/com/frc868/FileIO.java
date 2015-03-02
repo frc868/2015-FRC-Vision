@@ -59,5 +59,20 @@ public class FileIO {
 		YellowTote.defineRange(low, high);
 		buffer.close();
 	}
+	
+	public static void updateConstants(String fileLoc) throws Exception {
+		
+		BufferedReader buffer = new BufferedReader(new FileReader(fileLoc));
+		
+		Constants.ROBORIO_IP_ADDRESS = buffer.readLine().split("=")[1].trim();
+		Constants.CAMERA_FEED_URL = buffer.readLine().split("=")[1].trim();
+		Constants.FILE_SAVE_PATH = buffer.readLine().split("=")[1].trim();
+		Constants.MAX_POWER_TO_DRIVE = Double.parseDouble(buffer.readLine().split("=")[1].trim());
+		Constants.POWER_REDUCTION = Double.parseDouble(buffer.readLine().split("=")[1].trim());;
+		Constants.OFFSET_FACTOR = Double.parseDouble(buffer.readLine().split("=")[1].trim());;
+		Constants.PERCENT_CAMERA = Double.parseDouble(buffer.readLine().split("=")[1].trim());
+		
+		buffer.close();
+	}
 }
 	

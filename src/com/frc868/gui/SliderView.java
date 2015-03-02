@@ -14,6 +14,7 @@ import javax.swing.JPanel;
 import org.opencv.core.Scalar;
 
 import com.frc868.Constants;
+import com.frc868.FileIO;
 import com.frc868.Server;
 
 @SuppressWarnings("serial")
@@ -23,6 +24,7 @@ public class SliderView extends JPanel implements ActionListener {
 	private JPanel hsvSlider;
 	
 	private JButton saveButton;
+	private JButton updateButton;
 	
 	public SliderView(CameraViewer camView) {
 		
@@ -34,9 +36,17 @@ public class SliderView extends JPanel implements ActionListener {
 		
 		hsvSlider = new HSVSlider();
 		saveButton = new JButton("Save HSV Values");
+		updateButton = new JButton("Update Constants");
 		saveButton.addActionListener(this);
+		updateButton.addActionListener(actionListener -> {
+			try {
+				FileIO.updateConstants(Constants.CONST_PATH);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		});
 		
-		JComponent[] components = {serverOutput, hsvSlider, saveButton};
+		JComponent[] components = {serverOutput, hsvSlider, saveButton, updateButton};
 		
 		for (JComponent comp : components) {
 			add(comp);
