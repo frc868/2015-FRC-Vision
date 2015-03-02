@@ -6,6 +6,9 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.Timer;
+
+import com.frc868.Camera;
 
 /** 
  * @author Atif Niyaz
@@ -16,15 +19,24 @@ import javax.swing.JFrame;
 public class WindowRealTime extends JFrame implements ActionListener {
 	
 	private Container pane;
+	private Camera camera;
+	
+	private Timer timer;
 	
 	/**
 	 * Creates a Window with a specified Camera
 	 */
-	public WindowRealTime(String title){
+	public WindowRealTime(Camera camera, String title){
+		
+		this.camera = camera;
+		
+		this.timer = new Timer(0, (ActionListener) this);
 		
 		pane = this.getContentPane();
 		JButton button = new JButton("Exit Vision RunTime");
-		button.addActionListener(this);
+		button.addActionListener(actionEvent -> {
+			System.exit(22);
+		});
 		
 		pane.add(button);
 		
@@ -35,12 +47,14 @@ public class WindowRealTime extends JFrame implements ActionListener {
 		
 		this.setLocationRelativeTo(null);
 		this.setVisible(true);
+		
+		timer.start();
 	}
 
 	/**
 	 * This method is called as fast as possible by the timer and initiates repainting 
 	 */
 	public void actionPerformed(ActionEvent actionEvent) {
-		System.exit(22);
+		camera.getProcessedFrame();
 	}
 }

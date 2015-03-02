@@ -29,9 +29,6 @@ public class ProgramRealTime {
 		Server.setCamera(camera);
 		Server.getInstance();
 		
-		new WindowRealTime("Vision 2015 RunTime");
-		
-		while(true)
-			camera.getProcessedFrame();
+		new WindowRealTime(camera, "Vision 2015 RunTime");
 	}
 }

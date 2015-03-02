@@ -1,6 +1,8 @@
 package com.frc868;
 import com.frc868.exceptions.CaptureException;
 import com.frc868.filters.groups.Filter2015;
+import com.frc868.gui.ConstantsEditor;
+import com.frc868.gui.Editor;
 import com.frc868.gui.Window;
 import com.frc868.processors.ToteDetector;
 
@@ -29,6 +31,7 @@ public class Program {
 		Server.getInstance();
 		
 		new Window(camera, "Vision Tool 2015");
+		//new Editor();
 	}
 
 }
