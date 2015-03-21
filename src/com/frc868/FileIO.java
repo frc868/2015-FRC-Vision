@@ -23,6 +23,8 @@ import com.frc868.filters.YellowTote;
  */
 public class FileIO {
 	
+	public static int countCall = 0;
+	
 	/**
 	 * Converts a Mat containing color values to a BufferedImage that can be drawn or saved
 	 */

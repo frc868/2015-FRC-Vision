@@ -81,6 +81,11 @@ public class ToteDetector implements Processor {
 //	}
 	
 	private double getDistanceFactor(Rect largestRect){
+		
+		if(largestRect.x + largestRect.width / 2.0 < camResolution.width / 4.0 ||
+					largestRect.y + largestRect.height / 2.0 < camResolution.height * 1.0 / 3.0)
+			return 0.0;
+		
 		if(largestRect.x == 0 || largestRect.y == 0)
 			return 0.0;
 		

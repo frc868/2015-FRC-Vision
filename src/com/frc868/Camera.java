@@ -4,6 +4,7 @@ import java.awt.Dimension;
 import java.util.ArrayList;
 
 import org.opencv.core.Mat;
+import org.opencv.highgui.Highgui;
 import org.opencv.highgui.VideoCapture;
 
 import com.frc868.exceptions.CaptureException;
@@ -88,12 +89,13 @@ public class Camera {
 	 * Get's an unprocessed image frame before filtering and processing
 	 */
 	public Mat getRawFrame(){
-		
+//		return Highgui.imread("C:\\Images\\img_129.png");
+	
 		Server.setCamera(this);
 		
 		if(!capture.grab()) { // Stream is broken of EOF or we are in Teleop
 			System.out.println("Stream is broken or we are at EOF or we are at 15 second time limit");
-			System.exit(99);
+		//	System.exit(99);
 		}
 		
 		Mat image = new Mat();

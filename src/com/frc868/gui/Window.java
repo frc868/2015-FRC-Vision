@@ -10,6 +10,8 @@ import javax.swing.JPanel;
 import javax.swing.Timer;
 
 import com.frc868.Camera;
+import com.frc868.Server;
+import com.frc868.arduino.Arduino;
 
 /** 
  * @author Atif Niyaz, Calvin Henry, Andrew Bass
@@ -24,8 +26,7 @@ public class Window extends JFrame implements ActionListener {
 	private Timer timer;
 	private JPanel sliders;
 	
-	private Container pane;
-	
+	private Container pane;	
 	/**
 	 * Creates a Window with a specified Camera
 	 */
@@ -46,6 +47,7 @@ public class Window extends JFrame implements ActionListener {
 		
 		
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
 		this.setTitle(title);
 		
 		this.pack();

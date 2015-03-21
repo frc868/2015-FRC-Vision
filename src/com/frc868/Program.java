@@ -1,4 +1,7 @@
 package com.frc868;
+import java.util.Scanner;
+
+import com.frc868.arduino.Arduino;
 import com.frc868.exceptions.CaptureException;
 import com.frc868.filters.groups.Filter2015;
 import com.frc868.gui.Window;
@@ -10,6 +13,8 @@ import com.frc868.processors.ToteDetector;
  * Main Program Class
  */
 public class Program {
+	
+	public static Thread thread;
 	
 	static {
 		System.out.println("Loading OpenCV 2.4.10");
@@ -28,6 +33,22 @@ public class Program {
 		
 		Server.setCamera(camera);
 		Server.getInstance();
+		Arduino.getInstance();
+		
+		thread = new Thread() {
+			public void run() {
+				while(true) {
+					try {
+						Arduino.getInstance().setHeight(Server.getInstance().getLiftHeight());
+						Thread.sleep(4);
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					}
+				}
+			}
+		};
+		
+		thread.start();
 		
 		new Window(camera, "TechHOUNDS Vision Tool 2015");
 		//new Editor();

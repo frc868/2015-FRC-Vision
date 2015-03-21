@@ -5,6 +5,9 @@ import java.awt.Graphics;
 
 import javax.swing.JComponent;
 
+import org.opencv.core.Mat;
+import org.opencv.highgui.Highgui;
+
 import com.frc868.Camera;
 import com.frc868.FileIO;
 
@@ -30,7 +33,13 @@ public class CameraViewer extends JComponent {
 	}
 	
 	public void paintComponent(Graphics g){
-		g.drawImage(FileIO.toImage(camera.getProcessedFrame()), 0, 0, null);
+		FileIO.countCall++;
+		
+		Mat image = camera.getProcessedFrame();
+		g.drawImage(FileIO.toImage(image), 0, 0, null);
+		
+		if(FileIO.countCall % 3 == 0)
+			Highgui.imwrite("C:\\Vision2015\\Images\\img_" + (FileIO.countCall / 3) + ".png", image);
 	}
 	
 }

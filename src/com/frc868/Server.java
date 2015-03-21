@@ -50,6 +50,10 @@ public class Server {
 		return instance;
 	}
 	
+	public double getLiftHeight() {
+		return table.getNumber("Lift Enc Height", 8);
+	}
+	
 	public double getWidth() {
 		return camera.getResolution().getWidth();
 	}
@@ -141,7 +145,7 @@ public class Server {
 		model.addRow(new Object[] {"Offest from Center", 160-this.getCenter()}			);
 		model.addRow(new Object[] {"Rect Width", this.getRectWidth()}		);
 		model.addRow(new Object[] {"Rect Height", this.getRectHeight()}		);
-		
+		model.addRow(new Object[] {"Lift Height", this.getLiftHeight()}		);	
 		return model;
 	}
 	
