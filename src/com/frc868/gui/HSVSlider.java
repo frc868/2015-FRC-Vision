@@ -24,13 +24,17 @@ import com.frc868.filters.YellowTote;
 @SuppressWarnings("serial")
 public class HSVSlider extends JPanel implements ChangeListener{
 	
-	final int H_RANGE = 12;
-	final int S_RANGE = 155;
-	final int V_RANGE = 115;
+//	final int H_RANGE = 12;
+//	final int S_RANGE = 155;
+//	final int V_RANGE = 115;
 	
-	public JSlider h = new JSlider(0,180 - H_RANGE);
-	public JSlider s = new JSlider(0, 255 - S_RANGE);
-	public JSlider v = new JSlider(0, 255 - V_RANGE);
+	public JSlider h = new JSlider(0, 255);
+	public JSlider s = new JSlider(0, 255);
+	public JSlider v = new JSlider(0, 255);
+	
+	public JSlider hl = new JSlider(0,255);
+	public JSlider sl = new JSlider(0,255);
+	public JSlider vl = new JSlider(0,255);
 	
 	public JLabel hLabel, sLabel, vLabel;
 	
@@ -61,27 +65,47 @@ public class HSVSlider extends JPanel implements ChangeListener{
 		h.setAlignmentX(LEFT_ALIGNMENT);
 		h.setOrientation(JSlider.HORIZONTAL);
 		h.addChangeListener(this);
-		h.setValue((int) low.val[0]);
+		h.setValue((int) high.val[0]);
 		
 		s.setAlignmentX(LEFT_ALIGNMENT);
 		s.setOrientation(JSlider.HORIZONTAL);
 		s.addChangeListener(this);
-		s.setValue((int) low.val[1]);
+		s.setValue((int) high.val[1]);
 
 		
 		v.setAlignmentX(LEFT_ALIGNMENT);
 		v.setOrientation(JSlider.HORIZONTAL);
 		v.addChangeListener(this);
-		v.setValue((int) low.val[2]);
+		v.setValue((int) high.val[2]);
+		
+		hl.setAlignmentX(LEFT_ALIGNMENT);
+		hl.setOrientation(JSlider.HORIZONTAL);
+		hl.addChangeListener(this);
+		hl.setValue((int) low.val[0]);
+		
+		sl.setAlignmentX(LEFT_ALIGNMENT);
+		sl.setOrientation(JSlider.HORIZONTAL);
+		sl.addChangeListener(this);
+		sl.setValue((int) low.val[1]);
+
+		
+		vl.setAlignmentX(LEFT_ALIGNMENT);
+		vl.setOrientation(JSlider.HORIZONTAL);
+		vl.addChangeListener(this);
+		vl.setValue((int) low.val[2]);
 
 		
 		add(hLabel);
+		add(hl);
 		add(h);
 		
+		
 		add(sLabel);
+		add(sl);
 		add(s);
 		
 		add(vLabel);
+		add(vl);
 		add(v);
 	}
 
@@ -90,19 +114,19 @@ public class HSVSlider extends JPanel implements ChangeListener{
 	 */
 	public void stateChanged(ChangeEvent arg0) {
 		
-		Scalar low = new Scalar(h.getValue(), s.getValue(), v.getValue());
-		Scalar high = new Scalar(h.getValue() + H_RANGE, s.getValue() + S_RANGE, v.getValue() + V_RANGE);
+		Scalar low = new Scalar(hl.getValue(), sl.getValue(), vl.getValue());
+		Scalar high = new Scalar(h.getValue(), s.getValue(), v.getValue());
 		
-		hLabel.setText("Hue Min: " + h.getValue() + "  Hue Max: " + (h.getValue() + H_RANGE));
-		sLabel.setText("Sat Min: " + s.getValue() + "  Sat Max: " + (s.getValue() + S_RANGE));
-		vLabel.setText("Val Min: " + v.getValue() + "  Val Max: " + (v.getValue() + V_RANGE));
+		hLabel.setText("Hue Min: " + hl.getValue() + "  Hue Max: " + h.getValue());
+		sLabel.setText("Sat Min: " + sl.getValue() + "  Sat Max: " + s.getValue());
+		vLabel.setText("Val Min: " + vl.getValue() + "  Val Max: " + v.getValue());
 		 
 		YellowTote.defineRange(low, high);
 	}
 	
 	public Scalar[] getHSVValues() {
-		Scalar low = new Scalar(h.getValue(), s.getValue(), v.getValue());
-		Scalar high = new Scalar(h.getValue() + H_RANGE, s.getValue() + S_RANGE, v.getValue() + V_RANGE);
+		Scalar low = new Scalar(hl.getValue(), sl.getValue(), vl.getValue());
+		Scalar high = new Scalar(h.getValue(), s.getValue(), v.getValue());
 		
 		return  new Scalar[] {low, high};
 	}

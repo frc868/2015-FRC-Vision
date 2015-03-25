@@ -19,7 +19,7 @@ public class Arduino {
 	private boolean _Rts = false;
 	private boolean _Dtr = false;
 	
-	private static double MAX_LIFT_HEIGHT = 4 * 12;
+	private static double MAX_LIFT_HEIGHT = 4;
 	private static double ARDUINO_SCALAR = 16;
 	
 	private boolean isOpen = false;
@@ -45,7 +45,8 @@ public class Arduino {
 	}
 
 	public void setHeight(double height) {
-		int temp = (int) Math.max(Math.min((height  * 12.0 / MAX_LIFT_HEIGHT) * ARDUINO_SCALAR, ARDUINO_SCALAR-1), 0);
+		int temp = (int) Math.max(Math.min((height / MAX_LIFT_HEIGHT) * ARDUINO_SCALAR, ARDUINO_SCALAR - 1), 0);
+		System.out.println("Height: " + temp);
 		write(new byte[] {(byte) temp});
 	}
 	

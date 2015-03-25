@@ -10,6 +10,7 @@ import org.opencv.highgui.Highgui;
 
 import com.frc868.Camera;
 import com.frc868.FileIO;
+import com.frc868.Program;
 
 /**
  * @author Andrew Bass
@@ -39,7 +40,7 @@ public class CameraViewer extends JComponent {
 		g.drawImage(FileIO.toImage(image), 0, 0, null);
 		
 		if(FileIO.countCall % 3 == 0)
-			Highgui.imwrite("C:\\Vision2015\\Images\\img_" + (FileIO.countCall / 3) + ".png", image);
+			Highgui.imwrite(Program.folderName + "\\img_" + (FileIO.countCall / 3) + ".png", image);
 	}
 	
 }

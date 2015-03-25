@@ -24,6 +24,8 @@ import com.frc868.polygons.Polygon;
 public class ToteDetector implements Processor {
 
 	private Rect largestRect;
+	private Rect secondLargestRect;
+	
 	private Size camResolution;
 	private Mat targetImage;
 	
@@ -40,7 +42,7 @@ public class ToteDetector implements Processor {
 		
 		/* Set Largest Rect to be 0 x 0 so that it can compare*/
 		largestRect = new Rect(0, 0, 0, 0);
-		
+		secondLargestRect = new Rect(0, 0, 0, 0);
 	
 		/*	Iterate through all contours, each will create a bounding rectangle.
 		 *	The biggest rectangle / tote in view will move on in the processing. 
@@ -49,22 +51,28 @@ public class ToteDetector implements Processor {
 			MatOfPoint contour = contours.get(i);
 			Rect rect = Imgproc.boundingRect(contour);
 			
-			if(rect.size().area() > largestRect.size().area())
-				this.largestRect = rect;
+			if(rect.size().area() > secondLargestRect.size().area())
+				if(rect.size().area() > largestRect.size().area())
+					largestRect = rect;
+				else
+					secondLargestRect = rect;
 		}
 		
-		/* Draw the Rectangle onto the Mat */
-		Core.rectangle(this.targetImage, largestRect.tl(), largestRect.br(), new Scalar(255, 0, 0), 2, 8, 0);
+		largestRect = determineValidRect(largestRect, secondLargestRect);
 
 		/* Get the server instance */
 		Server s = Server.getInstance();
 		
-		/* Set some values that will be sent to the server */
-		s.setCenter(largestRect.x + largestRect.width / 2.0);
+		if(largestRect != null) {
+			Core.rectangle(this.targetImage, largestRect.tl(), largestRect.br(), new Scalar(255, 0, 255), 2, 8, 0);
+			s.setCenter(largestRect.x + largestRect.width / 2.0);
+			s.table.putNumber("Polygon Height", largestRect.height);
+		} else {
+			s.setCenter(0);
+			s.table.putNumber("Polygon Height", 0);
+		}
+		
 		s.setDistFactor(getDistanceFactor(largestRect));
-
-		/* TODO Delete this hack */
-		s.table.putNumber("Polygon Height", largestRect.height);
 		s.send();
 		
 		return this.targetImage;
@@ -80,13 +88,22 @@ public class ToteDetector implements Processor {
 //		// More accurate calculation of center?
 //	}
 	
+	private Rect determineValidRect(Rect largestRect, Rect secondLargestRect) {
+		if(largestRect.x + largestRect.width / 2.0 < camResolution.width / 4.0 ||
+				largestRect.y + largestRect.height / 2.0 < camResolution.height / 3.0) {
+			if(secondLargestRect.x + secondLargestRect.width / 2.0 < camResolution.width / 4.0 ||
+					secondLargestRect.y + secondLargestRect.height / 2.0 < camResolution.height / 3.0) {
+				return null;
+			} else {
+				return secondLargestRect;
+			}
+		} else
+			return largestRect;
+	}
+	
 	private double getDistanceFactor(Rect largestRect){
 		
-		if(largestRect.x + largestRect.width / 2.0 < camResolution.width / 4.0 ||
-					largestRect.y + largestRect.height / 2.0 < camResolution.height * 1.0 / 3.0)
-			return 0.0;
-		
-		if(largestRect.x == 0 || largestRect.y == 0)
+		if(largestRect == null || largestRect.x == 0 || largestRect.y == 0)
 			return 0.0;
 		
 		double ratio = (double)largestRect.height / 

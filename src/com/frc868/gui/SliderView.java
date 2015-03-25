@@ -69,8 +69,8 @@ public class SliderView extends JPanel implements ActionListener {
 				BufferedWriter writer = new BufferedWriter(new PrintWriter(Constants.FILE_SAVE_PATH));
 				
 				for(Scalar val : values)
-					for(double value : val.val) {
-						writer.write(Double.toString(value));
+					for(int i = 0; i < 3; i++) {
+						writer.write(Double.toString(val.val[i]));
 						writer.newLine();
 					}
 				
