@@ -20,7 +20,7 @@ public class Arduino {
 	private boolean _Dtr = false;
 	
 	private static double MAX_LIFT_HEIGHT = 4;
-	private static double ARDUINO_SCALAR = 16;
+	private static double ARDUINO_SCALAR = 64;
 	
 	private boolean isOpen = false;
 
@@ -29,7 +29,7 @@ public class Arduino {
 	
 	public static Arduino getInstance() {
 		if(instance == null)
-			instance = new Arduino("COM11");
+			instance = new Arduino("COM13");
 		return instance;
 	}
 	
@@ -41,12 +41,18 @@ public class Arduino {
 			}
 			send(bytes);
 		} catch(Exception e) {
+			System.err.println(e.getMessage());
 		}
 	}
 
 	public void setHeight(double height) {
+		if (height < 0){
+			System.err.println("********* START OF AUTON **********");
+			write(new byte[]{68});
+			return;
+		}
 		int temp = (int) Math.max(Math.min((height / MAX_LIFT_HEIGHT) * ARDUINO_SCALAR, ARDUINO_SCALAR - 1), 0);
-		System.out.println("Height: " + temp);
+		System.out.println("Height: " + temp + " (from " + height + ")");
 		write(new byte[] {(byte) temp});
 	}
 	
