@@ -29,7 +29,7 @@ public class Arduino {
 	
 	public static Arduino getInstance() {
 		if(instance == null)
-			instance = new Arduino("COM13");
+			instance = new Arduino("COM3");
 		return instance;
 	}
 	
