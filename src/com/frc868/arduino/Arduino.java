@@ -47,7 +47,7 @@ public class Arduino {
 
 	public void setHeight(double height) {
 		if (height < 0){
-			System.err.println("********* START OF AUTON **********");
+//			System.err.println("********* START OF AUTON **********");
 			write(new byte[]{68});
 			return;
 		}

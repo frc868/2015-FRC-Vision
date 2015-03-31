@@ -54,6 +54,10 @@ public class Server {
 		return table.getNumber("Lift Enc Height", 8);
 	}
 	
+	public double getVisionMode() {
+		return table.getNumber("VisionMode", 1);
+	}
+	
 	public double getWidth() {
 		return camera.getResolution().getWidth();
 	}
